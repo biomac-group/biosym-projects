@@ -10,6 +10,8 @@ Journal of Biomechanics, 95, 109278, built on top of the `biosym` package
 Per-participant walking/running trial data are from the same study
 (DOI 10.5281/zenodo.11522049).
 
+Our results are validated in this [REPORT](REPORT.md).
+
 ## Setup
 
 We are using `uv` to create a virtual environment containing the `biosym` package and its dependencies. To set up the environment, run `uv sync` from the root of this repository and activate the `.venv` environment using `source .venv/bin/activate`. 
@@ -80,7 +82,7 @@ python scripts/run_experiment.py P02 normwalking --visualize
 python scripts/run_experiment.py P02 normrunning --visualize
 ```
 
-or, to run everything for all participants and re-generate the validation report, run:
+or, to run everything for all participants and re-generate the validation [REPORT](REPORT.md), run:
 
 ```bash
 python run_all.py
