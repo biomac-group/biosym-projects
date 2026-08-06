@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ground_contact_model force_law="huntcrossley">
+  <default>
+    <contact_point name="default" body="default" pos="0 0 0" stiffness="1e6" dissipation="2.0" static_friction="0.8" dynamic_friction="0.8" viscous_friction="0.5" transition_velocity="0.2" />
+  </default>
+  <contact_point name="heel_r" body="foot_r" pos="-0.0586667 -0.06864 0" stiffness="1e6" />
+  <contact_point name="toe_r" body="foot_r" pos="0.159964 -0.06864 0" />
+  <contact_point name="heel_l" body="foot_l" pos="-0.0586667 -0.06864 0" stiffness="1e6" />
+  <contact_point name="toe_l" body="foot_l" pos="0.159964 -0.06864 0" />
+</ground_contact_model>

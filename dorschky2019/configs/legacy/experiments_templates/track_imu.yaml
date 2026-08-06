@@ -1,0 +1,60 @@
+collocation:
+  name: track_imu
+  description: >
+    Muscle-driven, IMU-only gait tracking (Dorschky et al. 2019). Model path,
+    output path, initial guess, and gait-cycle duration are filled in per
+    participant/trial by run_experiment.py. The IMUTrackingObjective's data
+    arrays (tracking_data, tracking_variance, sensor_config) cannot be
+    expressed as plain YAML text and are injected by run_experiment.py after
+    this file is loaded -- only its weight/high_freq_weight live here.
+
+  settings:
+    model: "{model}"
+    nnodes: 100
+    enable_logging: true
+    log_interval: 10
+    discretization:
+      type: euler
+      args:
+        mode: backward
+        vars: q
+        weight: 1
+        adaptive_h: false
+    output:
+      file: "{output}"
+    tol: 5e-4
+    acceptable_dual_inf_tol: 1e-3
+    acceptable_tol: 1e-3
+    constr_viol_tol: 1e-4
+    max_iter: 8000
+
+  objectives:
+    - name: IMUTrackingObjective
+      weight: 10
+      args:
+        high_freq_weight: 0.0
+
+    - name: effort_term
+      weight: 1
+      args:
+        exponent: 3
+        speedweighting: true
+
+  constraints:
+    - name: dynamics
+      weight: 1.0  # dynamics constraint self-normalizes by body weight (N) internally
+    - name: periodicity
+      weight: 1
+      args:
+        symmetry: false
+        exclude: [0]
+
+  initial_guess:
+    type: from_file
+    file: "{initial_guess}"
+
+  bounds:
+    from_model: true
+    start_at_origin: true
+    dur: [{dur}, {dur}]
+    speed: [0, 10]

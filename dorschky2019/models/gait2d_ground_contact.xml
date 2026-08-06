@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ground_contact_model type="gait2dc">
+  <default>
+    <contact_point name="default" body="default" pos="0 0 0" K1="1e5" K2="1e5" A="0" C="1" k="10" b="100" mu="1"></contact_point>
+  </default>
+  <contact_point name="heel_r" body="foot_r" pos="-0.06 -0.0702 0"></contact_point>
+  <contact_point name="toe_r" body="foot_r" pos="0.1636 -0.0702 0"></contact_point>
+  <contact_point name="heel_l" body="foot_l" pos="-0.06 -0.0702 0"></contact_point>
+  <contact_point name="toe_l" body="foot_l" pos="0.1636 -0.0702 0"></contact_point>
+</ground_contact_model>

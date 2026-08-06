@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Same heel/toe contact points as gait2d_ground_contact.xml, but using the
+  HuntCrossley force law (OpenSim/Simbody-style smooth sphere contact)
+  instead of SpringDamper, matching the contact formulation used in
+  Afschrift et al. 2025 (benchmarking predictive simulation of gait).
+
+  stiffness/dissipation/static_friction/dynamic_friction/viscous_friction/
+  transition_velocity below match the SmoothSphereHalfSpaceForce parameters
+  used on all 12 contact spheres (6 per foot) in Falisse et al. 2022's
+  OpenSim model ("Modeling toes contributes to realistic stance knee
+  mechanics...", PLoS ONE 17(1):e0256311) - the same contact formulation
+  Afschrift et al. 2025 builds on. Values confirmed against
+  Subjects/Falisse_et_al_2022/Falisse_et_al_2022.osim in
+  https://github.com/KULeuvenNeuromechanics/PredSim (commit a50fb31,
+  2026-07-07). They are physical values (N/m^2 plane-strain modulus etc.),
+  not body-weight scaled - see contact_huntcrossley.py's docstring.
+
+  Not carried over from that model: contact sphere radius (their model uses
+  6 spheres/foot with radii ~0.03 m; this 2D law is a point contact with no
+  radius term) and the exact 3D sphere locations - this file keeps the
+  existing 2D heel/toe point positions from gait2d_ground_contact.xml.
+-->
+<ground_contact_model force_law="huntcrossley">
+  <default>
+    <contact_point name="default" body="default" pos="0 0 0"
+      stiffness="3e5" dissipation="2.0"
+      static_friction="0.8" dynamic_friction="0.8" viscous_friction="0.5"
+      transition_velocity="0.2"></contact_point>
+  </default>
+  <contact_point name="heel_r" body="foot_r" pos="-0.06 -0.0702 0"></contact_point>
+  <contact_point name="toe_r" body="foot_r" pos="0.1636 -0.0702 0"></contact_point>
+  <contact_point name="heel_l" body="foot_l" pos="-0.06 -0.0702 0"></contact_point>
+  <contact_point name="toe_l" body="foot_l" pos="0.1636 -0.0702 0"></contact_point>
+</ground_contact_model>

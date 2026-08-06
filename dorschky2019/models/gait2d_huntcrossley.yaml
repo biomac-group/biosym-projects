@@ -1,0 +1,12 @@
+model:
+  name: gait2d.xml
+  additional_parameters:
+    joints:
+      jointK2: 5000 # from gait2dc_par.xls, not a mujoco parameter
+      jointD: 2 # from gait2dc_par.xls, not a mujoco parameter
+    ground_contact:
+      replace_existing: true # overwrite any existing mujoco ground contact parameters
+      file: "gait2d_ground_contact_huntcrossley.xml" # HuntCrossley (Afschrift et al. 2025-style) contact
+    actuators:
+      replace_existing: true # overwrite any existing mujoco muscle parameters
+      file: "gait2d_actuators.xml" # Load from definition file

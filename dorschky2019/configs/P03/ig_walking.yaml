@@ -1,0 +1,43 @@
+collocation:
+  name: P03_ig_walking
+  description: 100-node half-cycle walking warm start, tracking biosym's population-average
+    joint angles/GRF (not subject/trial specific).
+  settings:
+    model: models/participants/P03.yaml
+    nnodes: 100
+    enable_logging: true
+    iteration_log_interval: 20
+    discretization:
+      type: euler
+      args: {mode: backward, vars: q, weight: 1, adaptive_h: false}
+    output: {file: result/P03/ig_walking.pkl}
+    tol: 0.0005
+    acceptable_tol: 0.001
+    acceptable_dual_inf_tol: 0.001
+    constr_viol_tol: 0.0001
+    max_iter: 4000
+  objectives:
+  - name: track_angles
+    weight: 1
+    args:
+      presegmented: true
+      presegmented_file: data/gait_avg_joint_angles.mot
+      exclude: [pelvis_tx, pelvis_ty]
+  - name: effort_term
+    weight: 300
+    args: {exponent: 3, speedweighting: true}
+  - name: track_grf
+    weight: 1
+    args: {presegmented: true, presegmented_file: data/gait_avg_grf.mot}
+  constraints:
+  - {name: dynamics}
+  - name: periodicity
+    args:
+      symmetry: false
+      exclude: [0]
+  initial_guess: {type: from_file, file: result/P03/ig_standing.pkl}
+  bounds:
+    from_model: true
+    start_at_origin: true
+    dur: [0.5, 1.3]
+    speed: 1.3

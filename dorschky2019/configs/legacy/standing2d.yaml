@@ -1,0 +1,34 @@
+collocation:
+  name: standing2d_dorschky
+  description: >
+    Single-node standing equilibrium for the dorschky2019 gait2d model.
+    Produces a balanced upright posture that serves as the warm-start for
+    the subsequent walking optimisation.
+
+  settings:
+    #model: dorschky2019/models/gait2d.yaml
+    model: dorschky2019/models/gait2d_huntcrossley.yaml
+    nnodes: 1
+    #enable_logging: true
+    #iteration_log_interval: 1
+    output:
+      file: "dorschky2019/result/standing2d.pkl"
+    tol: 5e-4
+    max_iter: 3000
+
+  objectives:
+    - name: effort_term
+      weight: 1.0
+      args:
+        exponent: 2
+
+  constraints:
+    - name: dynamics
+      weight: 1.0  # dynamics constraint self-normalizes by body weight (N) internally
+
+  bounds:
+    from_model: true
+    start_at_origin: true
+
+  initial_guess:
+    type: random

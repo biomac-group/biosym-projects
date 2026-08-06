@@ -1,0 +1,49 @@
+collocation:
+  name: script2d_torque_driven
+  description: Setup file for 2D gait model with torque-driven actuators
+  settings:
+    model: dorschky2019/models/gait2d_huntcrossley.yaml
+    nnodes: 100
+    enable_logging: true
+    log_interval: 10
+    discretization:
+      type: euler
+      args:
+        mode: backward
+        vars: q
+        weight: 1
+        adaptive_h: false
+    output:
+      file: "../result/{subject_id}_{trial_type}.pkl"
+    tol: 5e-4
+    acceptable_dual_inf_tol: 1e-3
+    acceptable_tol: 1e-3
+    constr_viol_tol: 1e-4
+    max_iter: 6000
+
+  objectives:
+    - name: effort_term
+      weight: 300
+      args:
+        exponent: 2
+
+
+
+  constraints:
+    - name: dynamics
+      weight: 1
+    - name: periodicity
+      weight: 1
+      args:
+        symmetry: false
+        exclude: [0]
+
+  initial_guess:
+    type: from_file
+    file: "../result/walking2d.pkl"
+
+  bounds:
+    from_model: true
+    start_at_origin: true
+    dur: 0.5
+    speed: [0,10]

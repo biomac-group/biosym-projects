@@ -1,0 +1,31 @@
+collocation:
+  name: standing
+  description: >
+    Single-node standing equilibrium, generic across participants. The model
+    path and output path are filled in per participant by run_experiment.py.
+    Always uses the participant's Hunt-Crossley model (models/participants/{{subject}}.yaml).
+
+  settings:
+    model: "{model}"
+    nnodes: 1
+    output:
+      file: "{output}"
+    tol: 5e-4
+    max_iter: 3000
+
+  objectives:
+    - name: effort_term
+      weight: 1.0
+      args:
+        exponent: 2
+
+  constraints:
+    - name: dynamics
+      weight: 1.0  # dynamics constraint self-normalizes by body weight (N) internally
+
+  bounds:
+    from_model: true
+    start_at_origin: true
+
+  initial_guess:
+    type: random

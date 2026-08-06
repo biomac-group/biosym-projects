@@ -1,0 +1,9 @@
+model:
+  name: P08.xml
+  additional_parameters:
+    ground_contact:
+      replace_existing: true
+      file: "P08_ground_contact_huntcrossley.xml" # Hunt-Crossley, project-wide default (see models/gait2d_huntcrossley.yaml)
+    actuators:
+      replace_existing: true
+      file: "../gait2d_actuators.xml" # shared, unscaled muscle geometry

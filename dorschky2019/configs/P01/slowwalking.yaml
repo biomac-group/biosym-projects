@@ -1,0 +1,37 @@
+collocation:
+  name: P01_slowwalking
+  description: Muscle-driven IMU-only gait tracking for P01/slowwalking (Dorschky
+    et al. 2019).
+  settings:
+    model: models/participants/P01.yaml
+    nnodes: 100
+    enable_logging: true
+    log_interval: 10
+    discretization:
+      type: euler
+      args: {mode: backward, vars: q, weight: 1, adaptive_h: false}
+    output: {file: result/P01/slowwalking.pkl}
+    tol: 0.0005
+    acceptable_dual_inf_tol: 0.001
+    acceptable_tol: 0.001
+    constr_viol_tol: 0.0001
+    max_iter: 8000
+  objectives:
+  - name: IMUTrackingObjective
+    weight: 1
+    args: {subject: P01, trial: slowwalking, data_dir: data}
+  - name: effort_term
+    weight: 300
+    args: {exponent: 2, speedweighting: true}
+  constraints:
+  - {name: dynamics}
+  - name: periodicity
+    args:
+      symmetry: false
+      exclude: [0]
+  initial_guess: {type: from_file, file: result/P01/ig_walking.pkl}
+  bounds:
+    from_model: true
+    start_at_origin: true
+    dur: [1.45, 1.45]
+    speed: [0, 10]

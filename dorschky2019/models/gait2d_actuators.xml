@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actuators type="hill_2d" name="default">
+  <default>
+    <muscle name="default" PEEslack="1.2" kPEE="1" umax="0.05" vmax="12" Tact="0.01" Tdeact="0.03" gmax="1.5" Arel="0.25" a_min="0" a_max="5"></muscle>
+  </default>
+  <muscle name="r_iliopsoas" fmax="1500" lceopt="0.102" width="1.298" SEEslack="0.142" L0="0.248" ft="0.5">
+    <dof name="hip_r" momentarm="0.05"></dof>
+  </muscle>
+  <muscle name="r_glutei" fmax="3000" lceopt="0.2" width="0.625" SEEslack="0.157" L0="0.271" ft="0.45">
+    <dof name="hip_r" momentarm="-0.062"></dof>
+  </muscle>
+  <muscle name="r_hamstrings" fmax="3000" lceopt="0.104" width="1.197" SEEslack="0.334" L0="0.383" ft="0.35">
+    <dof name="hip_r" momentarm="-0.072"></dof>
+    <dof name="knee_r" momentarm="-0.034"></dof>
+  </muscle>
+  <muscle name="r_rectus" fmax="1200" lceopt="0.081" width="1.443" SEEslack="0.398" L0="0.474" ft="0.65">
+    <dof name="hip_r" momentarm="0.034"></dof>
+    <dof name="knee_r" momentarm="0.05"></dof>
+  </muscle>
+  <muscle name="r_vasti" fmax="7000" lceopt="0.093" width="0.627" SEEslack="0.223" L0="0.271" ft="0.5">
+    <dof name="knee_r" momentarm="0.042"></dof>
+  </muscle>
+  <muscle name="r_gastroc" fmax="3000" lceopt="0.055" width="0.888" SEEslack="0.42" L0="0.487" ft="0.5">
+    <dof name="ankle_r" momentarm="-0.053"></dof>
+    <dof name="knee_r" momentarm="-0.02"></dof>
+  </muscle>
+  <muscle name="r_soleus" fmax="4000" lceopt="0.055" width="1.039" SEEslack="0.245" L0="0.284" ft="0.2">
+    <dof name="ankle_r" momentarm="-0.053"></dof>
+  </muscle>
+  <muscle name="r_tibialis_ant" fmax="2500" lceopt="0.082" width="0.442" SEEslack="0.317" L0="0.381" ft="0.25">
+    <dof name="ankle_r" momentarm="0.037"></dof>
+  </muscle>
+  <muscle name="l_iliopsoas" fmax="1500" lceopt="0.102" width="1.298" SEEslack="0.142" L0="0.248" ft="0.5">
+    <dof name="hip_l" momentarm="0.05"></dof>
+  </muscle>
+  <muscle name="l_glutei" fmax="3000" lceopt="0.2" width="0.625" SEEslack="0.157" L0="0.271" ft="0.45">
+    <dof name="hip_l" momentarm="-0.062"></dof>
+  </muscle>
+  <muscle name="l_hamstrings" fmax="3000" lceopt="0.104" width="1.197" SEEslack="0.334" L0="0.383" ft="0.35">
+    <dof name="hip_l" momentarm="-0.072"></dof>
+    <dof name="knee_l" momentarm="-0.034"></dof>
+  </muscle>
+  <muscle name="l_lectus" fmax="1200" lceopt="0.081" width="1.443" SEEslack="0.398" L0="0.474" ft="0.65">
+    <dof name="hip_l" momentarm="0.034"></dof>
+    <dof name="knee_l" momentarm="0.05"></dof>
+  </muscle>
+  <muscle name="l_vasti" fmax="7000" lceopt="0.093" width="0.627" SEEslack="0.223" L0="0.271" ft="0.5">
+    <dof name="knee_l" momentarm="0.042"></dof>
+  </muscle>
+  <muscle name="l_gastroc" fmax="3000" lceopt="0.055" width="0.888" SEEslack="0.42" L0="0.487" ft="0.5">
+    <dof name="ankle_l" momentarm="-0.053"></dof>
+    <dof name="knee_l" momentarm="-0.02"></dof>
+  </muscle>
+  <muscle name="l_soleus" fmax="4000" lceopt="0.055" width="1.039" SEEslack="0.245" L0="0.284" ft="0.2">
+    <dof name="ankle_l" momentarm="-0.053"></dof>
+  </muscle>
+  <muscle name="l_tibialis_ant" fmax="2500" lceopt="0.082" width="0.442" SEEslack="0.317" L0="0.381" ft="0.25">
+    <dof name="ankle_l" momentarm="0.037"></dof>
+  </muscle>
+</actuators>

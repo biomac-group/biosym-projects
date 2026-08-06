@@ -1,0 +1,17 @@
+collocation:
+  name: P01_ig_standing
+  description: Single-node standing equilibrium warm start.
+  settings:
+    model: models/participants/P01.yaml
+    nnodes: 1
+    output: {file: result/P01/ig_standing.pkl}
+    tol: 0.0005
+    max_iter: 3000
+  objectives:
+  - name: effort_term
+    weight: 1.0
+    args: {exponent: 2}
+  constraints:
+  - {name: dynamics}
+  bounds: {from_model: true, start_at_origin: true}
+  initial_guess: {type: random}
