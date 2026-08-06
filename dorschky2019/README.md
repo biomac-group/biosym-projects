@@ -10,6 +10,10 @@ Journal of Biomechanics, 95, 109278, built on top of the `biosym` package
 Per-participant walking/running trial data are from the same study
 (DOI 10.5281/zenodo.11522049).
 
+## Setup
+
+We are using `uv` to create a virtual environment containing the `biosym` package and its dependencies. To set up the environment, run `uv sync` from the root of this repository and activate the `.venv` environment using `source .venv/bin/activate`. 
+
 ## Pipeline
 
 For each participant, three warm-start stages bootstrap a periodic gait
