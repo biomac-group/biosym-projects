@@ -18,4 +18,16 @@ vendored into any of them.
   full pipeline, layout, and usage, and `dorschky2019/REPORT.md` for current
   validation results against the original paper's numbers.
 
-- **`3d_simulations/`** -- stay tuned :) 
+- **[`3d_simulations/`](3d_simulations/)** -- 3D gait prediction without tracking data, the biosym version of the
+  BiomechPriorVAE paper pipeline ([paper](https://doi.org/10.48550/arXiv.2610.08506),
+  [simulation repository](https://github.com/gambimar/BiomechPriorVAE),
+  [figures and website](https://github.com/gambimar/BiomechPriorVAE-visuals)). BioMAC's SIPP runmad model (33 DOF,
+  92 Gait3d muscles, 10 arm torque actuators, 12 implicit Hunt-Crossley contact spheres) walks or runs a half stride at a
+  set or self-chosen speed from a random standing pose; the objectives are the Bhargava cost of transport (or muscle
+  effort), a learned state prior, arm effort and a heel-strike variance penalty. Results are compared with the paper's
+  reference data and baselines in the biosym versions of its Figures 1, 3 and 4. `python 3d_simulations/run.py 1.2`
+  runs one simulation, see `3d_simulations/README.md`.
+
+- **[`imu_uncertainty/`](imu_uncertainty/)** -- learned, state-dependent IMU measurement uncertainty and a learned
+  pose prior for IMU-driven optimal-control gait estimation, built on `dorschky2019`. See `imu_uncertainty/README.md`.
+ 
