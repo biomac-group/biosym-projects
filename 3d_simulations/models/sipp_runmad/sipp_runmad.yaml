@@ -1,0 +1,204 @@
+# Standard SIPP runmad model of the 3D simulations (BioMAC's runmad, 33 DOF, 92 muscles + 10 arm torque actuators).
+#   * muscles: the Gait3dMuscle of the BioMAC-Sim-Toolbox; its muscle paths are fitted by biosym from the .osim on the
+#     first build (cached), there is no toolbox muscle data file
+#   * ground contact: the 12 SIPP spheres with the Hunt-Crossley contact law (huntcrossley), contact forces as implicit
+#     states, instantaneous contact velocity (contact_implicit.xml)
+#   * passive joints: the toolbox model (K1, B, quadratic K2 wall on the toolbox's passive ranges), except the toes:
+#     the toe joints (mtp_angle_r/l) have the spring-damper of Falisse et al. 2022 (25 N.m/rad, 2 N.m.s/rad,
+#     no range wall); the result is a toe that rolls through 6-48 deg instead of resting on the wall at 48 deg
+#   * SimmSpline transforms as the toolbox's degree-4 polyfit (transform_fit: toolbox)
+model:
+  name: sipp_runmad.osim
+  additional_parameters:
+    transform_fit: toolbox
+    ground_contact:
+      replace_existing: true
+      file: contact_implicit.xml
+    joints:
+      hip_flexion_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.48869219
+        passive_upper: 1.3613568
+      hip_adduction_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.2268928
+        passive_upper: 0.2268928
+      hip_rotation_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.052359878
+        passive_upper: 0.31415927
+      knee_angle_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -2.0594885
+        passive_upper: 0.13962634
+      ankle_angle_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.66322512
+        passive_upper: 0.66322512
+      subtalar_angle_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.2268928
+        passive_upper: 0.2268928
+      mtp_angle_r:
+        damping: 2.0
+        spring_stiffness: 25.0
+        spring_ref: 0.0
+        limit_quadratic: 0.0
+      hip_flexion_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.48869219
+        passive_upper: 1.3613568
+      hip_adduction_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.2268928
+        passive_upper: 0.2268928
+      hip_rotation_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.052359878
+        passive_upper: 0.31415927
+      knee_angle_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -2.0594885
+        passive_upper: 0.13962634
+      ankle_angle_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.66322512
+        passive_upper: 0.66322512
+      subtalar_angle_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.2268928
+        passive_upper: 0.2268928
+      mtp_angle_l:
+        damping: 2.0
+        spring_stiffness: 25.0
+        spring_ref: 0.0
+        limit_quadratic: 0.0
+      lumbar_extension:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.66322512
+        passive_upper: 0.052359878
+      lumbar_bending:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.13962634
+        passive_upper: 0.13962634
+      lumbar_rotation:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -0.31415927
+        passive_upper: 0.31415927
+      arm_flex_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -1.5358897
+        passive_upper: 1.5358897
+      arm_add_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -2.0594885
+        passive_upper: 1.5358897
+      arm_rot_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -1.5358897
+        passive_upper: 1.5358897
+      elbow_flex_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.1
+        limit_quadratic: 5000.0
+        passive_lower: 0.034906585
+        passive_upper: 2.5830934
+      pro_sup_r:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 1.5708
+        limit_quadratic: 5000.0
+        passive_lower: 0.034906585
+        passive_upper: 2.5830934
+      arm_flex_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -1.5358897
+        passive_upper: 1.5358897
+      arm_add_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -2.0594885
+        passive_upper: 1.5358897
+      arm_rot_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.0
+        limit_quadratic: 5000.0
+        passive_lower: -1.5358897
+        passive_upper: 1.5358897
+      elbow_flex_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 0.1
+        limit_quadratic: 5000.0
+        passive_lower: 0.034906585
+        passive_upper: 2.5830934
+      pro_sup_l:
+        damping: 1.0
+        spring_stiffness: 1.0
+        spring_ref: 1.5708
+        limit_quadratic: 5000.0
+        passive_lower: 0.034906585
+        passive_upper: 2.5830934
+    actuators:
+      muscle_model: gait3d

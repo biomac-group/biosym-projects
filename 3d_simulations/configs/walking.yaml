@@ -1,0 +1,86 @@
+collocation:
+  name: sipp_runmad_walking
+  description: >
+    Half-cycle 3D walking of BioMAC's SIPP runmad model (models/sipp_runmad/sipp_runmad.yaml: toolbox muscles,
+    implicit toolbox contact, toolbox passive joints with the Falisse 2022 toe spring) at a set speed, started
+    from the workstation walking guess (scripts/make_workstation_guess.py).
+
+    Objective, after scripts/func/runSim.m of the paper repository with a metabolic model selected: log cost of
+    transport of the smooth Bhargava model (bhargavaact, weight 1), the learned state prior (weight 1) and the
+    squared arm control (torque / 10, the control is bounded to +-5) divided by speed^2 (weight 1: runSim.m
+    W.effMusclesTor). Arm ranges as in running3D.m.
+
+    Half cycle: periodicity maps the last node onto the true mirror image of the first
+    (left/right permutation, with pelvis_rotation, pelvis_obliquity, pelvis_tz,
+    lumbar_bending and lumbar_rotation negated). BioMAC's pure permutation is not a
+    mirror for these: trunk muscle path lengths differ by up to 6.8 cm across it, which
+    produced fibre jumps of a full optimal length in the wrap interval.
+
+    The speed is bounds.speed below; the pipeline script overrides it with --speed.
+  settings:
+    model: models/sipp_runmad/sipp_runmad.yaml
+    compile_eom: false
+    nnodes: 50
+    discretization:
+      type: euler
+      args:
+        mode: backward
+        vars: q
+        weight: 10
+        adaptive_h: false
+        coordinate: pelvis_tx
+    output:
+      file: results/walking/walking.pkl
+    tol: 1e-3
+    acceptable_tol: 1e-3
+    acceptable_dual_inf_tol: 1e-3
+    dual_inf_tol: 1e-3
+    constr_viol_tol: 1e-4
+    max_iter: 10000
+
+  objectives:
+    - name: cot_term
+      weight: 1
+      args:
+        epsilon: 1.0e-3
+        exponent: log
+    - name: state_prior_term
+      weight: 1
+    - name: effort_term          # runSim.m W.effMusclesTor = 1 (effortTermTorques, exponent 2, speed weighted)
+      weight: 1
+      args:
+        select: torques
+        exponent: 2
+        speedweighting: true
+    - name: heelstrike_variance_term     # running3D.m W.heelstrikeVariance = 100
+      weight: 100
+      args:
+        force_threshold: 0.05
+        std_limit: 0.03
+
+  constraints:
+    - name: dynamics
+    - name: periodicity
+      args:
+        symmetry: true      # half cycle: last node = mirror image of the first
+        # True mirror: the unpaired frontal/transverse coordinates change sign (verified against the
+        # model's forward kinematics, periodicity.mirror_pose_error); the paired ones keep theirs.
+        mirror_negate: [pelvis_rotation, pelvis_obliquity, pelvis_tz, lumbar_bending, lumbar_rotation]
+        exclude: [3]        # pelvis_tx advances over the half cycle
+
+  initial_guess:
+    type: from_file
+    file: results/standing/seed1.pkl
+
+  bounds:
+    from_model: true
+    start_at_origin: true
+    dur: [0.2, 0.7]         # half cycle, seconds; the pipeline script sets running3D.m's bound for the speed
+    speed: 1.33             # set speed, m/s
+    coordinate_ranges_unit: deg
+    coordinate_ranges:      # running3D.m
+      arm_flex_*: [-40, 40]
+      arm_add_*: [-40, 40]
+      arm_rot_*: [-40, 40]
+      elbow_flex_*: [0, 150]
+      pro_sup_*: [0, 150]

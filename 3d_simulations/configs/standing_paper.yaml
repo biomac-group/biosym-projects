@@ -1,0 +1,68 @@
+collocation:
+  name: sipp_runmad_standing_paper
+  description: >
+    Static standing of the standard SIPP runmad model (models/sipp_runmad/sipp_runmad.yaml) after standing3D.m of the
+    BioMAC-Sim-Toolbox: one node, effort on the muscle activations (squared, volume weighted, weight 1) and on the
+    arm torques (squared normalised control, weight 1), coordinate ranges as in standing3D.m, pelvis rotation, tx and tz
+    pinned. Used by scripts/paper_standing.py, which builds the initial guess of each seed (prior pose, pelvis height at
+    one body weight, equilibrated muscles) and calls nlp.solve with it; the placeholder guess here is never solved from.
+  settings:
+    model: models/sipp_runmad/sipp_runmad.yaml
+    compile_eom: false
+    nnodes: 1
+    discretization:
+      type: euler
+      mode: backward
+    output:
+      file: results/standing/template.pkl
+    tol: 1e-4
+    acceptable_tol: 1e-4
+    dual_inf_tol: 1e-4
+    constr_viol_tol: 1e-3
+    max_iter: 3000
+
+  objectives:
+    - name: effort_term
+      weight: 1
+      args:
+        select: muscles
+        weighting: volumeweighted
+        exponent: 2
+    - name: effort_term
+      weight: 1
+      args:
+        select: torques
+        exponent: 2
+
+  constraints:
+    - name: dynamics
+
+  bounds:
+    from_model: true
+    fix:                      # standing3D.m: invariant to heading and position
+      pelvis_rotation: 0.0
+      pelvis_tx: 0.0
+      pelvis_tz: 0.0
+    coordinate_ranges_unit: deg
+    coordinate_ranges:        # standing3D.m
+      pelvis_obliquity: [-5, 5]
+      pelvis_tilt: [-30, 30]
+      pelvis_ty: [0.5, 1.5]    # metres
+      hip_flexion_*: [-30, 30]
+      hip_adduction_*: [-10, 10]
+      hip_rotation_*: [-30, 30]
+      knee_angle_*: [-30, 10]
+      ankle_angle_*: [-30, 30]
+      subtalar_angle_*: [-30, 30]
+      mtp_angle_*: [-30, 30]
+      lumbar_extension: [-10, 10]
+      lumbar_bending: [-10, 10]
+      lumbar_rotation: [-10, 10]
+      arm_flex_*: [-88, 88]
+      arm_add_*: [-88, 88]
+      arm_rot_*: [-88, 88]
+      elbow_flex_*: [-10, 88]
+      pro_sup_*: [-10, 150]
+
+  initial_guess:
+    type: default           # placeholder: scripts/paper_standing.py supplies the guess of every seed
