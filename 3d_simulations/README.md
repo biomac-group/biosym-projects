@@ -23,6 +23,11 @@ arm effort and a heel-strike variance penalty. The results are compared with the
 
 ## Install
 
+> **TODO!!! Upgrade this install to `uv` with a released `biosym` 0.2.0.** Until 0.2.0 is released, the steps below need a
+> checkout of the development version of `biosym` (the 0.1.12 release on PyPI lacks what this project uses). Once it is
+> out: add a `pyproject.toml` to this project that depends on `biosym>=0.2.0`, install with `uv sync`, and run everything
+> with `uv run` (e.g. `uv run python run.py 1.2`), and replace this section.
+
 The project has no `pyproject.toml` of its own; it needs a `biosym` that contains the standard model's features (the
 toolbox muscle `Gait3dMuscle`, implicit contact, `biosym.utils.state_prior`, `biosym-view`), i.e. the current `biosym`
 checkout (0.2.0 development) and not the 0.1.12 release on PyPI. The scripts `chdir` into the project folder.
