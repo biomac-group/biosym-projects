@@ -1,0 +1,417 @@
+muscle,crossed,n_terms,length_rms_mm,length_max_mm,arm_rms_mm
+Ps_L1_VB_r,flex_extension lat_bending axial_rotation,24,0.3160,0.9018,1.0835
+Ps_L1_TP_r,flex_extension lat_bending axial_rotation,22,0.4539,1.1853,1.1540
+Ps_L1_L2_IVD_r,flex_extension lat_bending axial_rotation,24,0.2766,0.7151,0.9698
+Ps_L2_TP_r,flex_extension lat_bending axial_rotation,20,0.2919,0.9557,0.9403
+Ps_L2_L3_IVD_r,flex_extension lat_bending axial_rotation,24,0.2269,0.6527,0.8125
+Ps_L3_TP_r,flex_extension lat_bending axial_rotation,21,0.2105,0.6372,0.6487
+Ps_L3_L4_IVD_r,flex_extension lat_bending axial_rotation,24,0.1392,0.4042,0.5433
+Ps_L4_TP_r,flex_extension lat_bending axial_rotation,25,0.1504,0.3945,0.5237
+Ps_L4_L5_IVD_r,flex_extension lat_bending axial_rotation,32,0.0919,0.2734,0.3926
+Ps_L5_TP_r,flex_extension lat_bending axial_rotation,32,0.1215,0.2465,0.3674
+Ps_L5_VB_r,flex_extension lat_bending axial_rotation,34,0.0558,0.1526,0.2184
+Ps_L1_VB_l,flex_extension lat_bending axial_rotation,24,0.3273,0.9231,1.0294
+Ps_L1_TP_l,flex_extension lat_bending axial_rotation,22,0.4455,1.1094,1.1072
+Ps_L1_L2_IVD_l,flex_extension lat_bending axial_rotation,24,0.2464,0.6561,0.9258
+Ps_L2_TP_l,flex_extension lat_bending axial_rotation,20,0.3045,0.9792,0.9341
+Ps_L2_L3_IVD_l,flex_extension lat_bending axial_rotation,24,0.2170,0.5969,0.7852
+Ps_L3_TP_l,flex_extension lat_bending axial_rotation,21,0.1967,0.5806,0.6446
+Ps_L3_L4_IVD_l,flex_extension lat_bending axial_rotation,24,0.1495,0.4487,0.5362
+Ps_L4_TP_l,flex_extension lat_bending axial_rotation,25,0.1533,0.3742,0.5297
+Ps_L4_L5_IVD_l,flex_extension lat_bending axial_rotation,32,0.0920,0.2715,0.3780
+Ps_L5_TP_l,flex_extension lat_bending axial_rotation,32,0.1083,0.2694,0.3824
+Ps_L5_VB_l,flex_extension lat_bending axial_rotation,34,0.0583,0.1361,0.2157
+rect_abd_l,flex_extension lat_bending axial_rotation,24,0.4866,1.5949,1.7103
+rect_abd_r,flex_extension lat_bending axial_rotation,24,0.4963,1.5486,1.7522
+IL_L1_r,flex_extension lat_bending axial_rotation,38,0.2816,0.7692,0.7372
+IL_L2_r,flex_extension lat_bending axial_rotation,44,0.1396,0.5268,0.6546
+IL_L3_r,flex_extension lat_bending axial_rotation,60,0.1292,0.6237,0.7273
+IL_L4_r,flex_extension lat_bending axial_rotation,60,0.2040,1.2395,1.1917
+IL_L1_l,flex_extension lat_bending axial_rotation,38,0.2741,0.6808,0.6657
+IL_L2_l,flex_extension lat_bending axial_rotation,44,0.1375,0.4600,0.6883
+IL_L3_l,flex_extension lat_bending axial_rotation,60,0.1386,0.6722,0.7457
+IL_L4_l,flex_extension lat_bending axial_rotation,60,0.1838,1.8546,1.0357
+IL_R5_r,flex_extension lat_bending axial_rotation,48,0.2028,0.9809,0.7594
+IL_R6_r,flex_extension lat_bending axial_rotation,60,0.2160,0.7615,0.8076
+IL_R7_r,flex_extension lat_bending axial_rotation,46,0.2495,0.8524,0.8350
+IL_R8_r,flex_extension lat_bending axial_rotation,60,0.2705,0.8176,1.0844
+IL_R9_r,flex_extension lat_bending axial_rotation,60,0.2118,0.8855,0.8902
+IL_R10_r,flex_extension lat_bending axial_rotation,60,0.2272,0.8677,1.1012
+IL_R11_r,flex_extension lat_bending axial_rotation,60,0.2326,0.8738,1.1194
+IL_R12_r,flex_extension lat_bending axial_rotation,43,0.2437,0.7488,0.9405
+IL_R5_l,flex_extension lat_bending axial_rotation,48,0.1861,0.7995,0.6509
+IL_R6_l,flex_extension lat_bending axial_rotation,60,0.2059,0.7980,0.7804
+IL_R7_l,flex_extension lat_bending axial_rotation,46,0.2533,0.9259,0.8023
+IL_R8_l,flex_extension lat_bending axial_rotation,60,0.2643,0.8631,1.1216
+IL_R9_l,flex_extension lat_bending axial_rotation,60,0.2314,0.8203,0.9920
+IL_R10_l,flex_extension lat_bending axial_rotation,60,0.2079,0.9190,1.0197
+IL_R11_l,flex_extension lat_bending axial_rotation,60,0.2208,0.7923,1.1248
+IL_R12_l,flex_extension lat_bending axial_rotation,43,0.2375,0.8008,0.9696
+LTpT_T1_r,,0,0.0000,0.0000,0.0000
+LTpT_T2_r,flex_extension lat_bending,4,0.0106,0.0332,0.0388
+LTpT_T3_r,flex_extension lat_bending axial_rotation,4,0.0563,0.1554,0.1196
+LTpT_T4_r,flex_extension lat_bending axial_rotation,3,0.0984,0.2656,0.2147
+LTpT_T5_r,flex_extension lat_bending axial_rotation,6,0.1566,0.4113,0.2118
+LTpT_T6_r,flex_extension lat_bending axial_rotation,6,0.2059,0.5095,0.2981
+LTpT_T7_r,flex_extension lat_bending axial_rotation,19,0.1556,0.4348,0.6526
+LTpT_T8_r,flex_extension lat_bending axial_rotation,20,0.1691,0.4684,0.6056
+LTpT_T9_r,flex_extension lat_bending axial_rotation,23,0.2035,0.5926,0.7846
+LTpT_T10_r,flex_extension lat_bending axial_rotation,22,0.2146,0.7443,0.7128
+LTpT_T11_r,flex_extension lat_bending axial_rotation,26,0.1991,0.5199,0.7039
+LTpT_T12_r,flex_extension lat_bending axial_rotation,28,0.2343,0.8860,0.6784
+LTpT_R4_r,flex_extension lat_bending axial_rotation,6,0.0915,0.2135,0.2754
+LTpT_R5_r,flex_extension lat_bending axial_rotation,5,0.0997,0.3277,0.2588
+LTpT_R6_r,flex_extension lat_bending axial_rotation,6,0.1002,0.2745,0.3322
+LTpT_R7_r,flex_extension lat_bending axial_rotation,22,0.1968,0.5453,0.6494
+LTpT_R8_r,flex_extension lat_bending axial_rotation,23,0.1868,0.6100,0.6713
+LTpT_R9_r,flex_extension lat_bending axial_rotation,25,0.2800,0.7768,0.8452
+LTpT_R10_r,flex_extension lat_bending axial_rotation,28,0.2363,0.8482,0.8229
+LTpT_R11_r,flex_extension lat_bending axial_rotation,28,0.2318,0.7700,0.7871
+LTpT_R12_r,flex_extension lat_bending axial_rotation,37,0.2312,0.8551,0.7888
+LTpT_T1_l,,0,0.0000,0.0000,0.0000
+LTpT_T2_l,flex_extension lat_bending,4,0.0099,0.0288,0.0382
+LTpT_T3_l,flex_extension lat_bending axial_rotation,4,0.0527,0.1524,0.1323
+LTpT_T4_l,flex_extension lat_bending axial_rotation,3,0.0966,0.2002,0.2094
+LTpT_T5_l,flex_extension lat_bending axial_rotation,6,0.1650,0.3475,0.2167
+LTpT_T6_l,flex_extension lat_bending axial_rotation,6,0.2112,0.6136,0.3040
+LTpT_T7_l,flex_extension lat_bending axial_rotation,19,0.1796,0.4890,0.6647
+LTpT_T8_l,flex_extension lat_bending axial_rotation,20,0.1737,0.5190,0.6197
+LTpT_T9_l,flex_extension lat_bending axial_rotation,23,0.2173,0.6613,0.7836
+LTpT_T10_l,flex_extension lat_bending axial_rotation,22,0.2121,0.6977,0.7034
+LTpT_T11_l,flex_extension lat_bending axial_rotation,26,0.2042,0.6365,0.7254
+LTpT_T12_l,flex_extension lat_bending axial_rotation,28,0.2235,0.7630,0.6705
+LTpT_R4_l,flex_extension lat_bending axial_rotation,6,0.0939,0.2130,0.2824
+LTpT_R5_l,flex_extension lat_bending axial_rotation,5,0.1052,0.3344,0.2630
+LTpT_R6_l,flex_extension lat_bending axial_rotation,6,0.1069,0.2675,0.3236
+LTpT_R7_l,flex_extension lat_bending axial_rotation,22,0.1809,0.5224,0.6618
+LTpT_R8_l,flex_extension lat_bending axial_rotation,23,0.1881,0.6185,0.6359
+LTpT_R9_l,flex_extension lat_bending axial_rotation,25,0.2710,0.7466,0.8270
+LTpT_R10_l,flex_extension lat_bending axial_rotation,28,0.2604,0.8115,0.8699
+LTpT_R11_l,flex_extension lat_bending axial_rotation,28,0.2328,0.8073,0.7506
+LTpT_R12_l,flex_extension lat_bending axial_rotation,37,0.2347,0.7778,0.7526
+LTpL_L5_r,flex_extension lat_bending axial_rotation,60,0.0588,0.2259,0.2529
+LTpL_L4_r,flex_extension lat_bending axial_rotation,44,0.0935,0.2506,0.3551
+LTpL_L3_r,flex_extension lat_bending axial_rotation,36,0.1687,0.5419,0.6087
+LTpL_L2_r,flex_extension lat_bending axial_rotation,35,0.2453,0.6929,0.8096
+LTpL_L1_r,flex_extension lat_bending axial_rotation,37,0.2630,0.8242,0.7260
+LTpL_L5_l,flex_extension lat_bending axial_rotation,60,0.0587,0.1976,0.2617
+LTpL_L4_l,flex_extension lat_bending axial_rotation,44,0.1057,0.2759,0.3594
+LTpL_L3_l,flex_extension lat_bending axial_rotation,36,0.1727,0.5533,0.5907
+LTpL_L2_l,flex_extension lat_bending axial_rotation,35,0.2272,0.6558,0.8260
+LTpL_L1_l,flex_extension lat_bending axial_rotation,37,0.2798,0.9040,0.7828
+QL_post_I.1-L3_r,flex_extension lat_bending axial_rotation,60,0.1268,0.6144,0.6766
+QL_post_I.2-L4_r,flex_extension lat_bending axial_rotation,60,0.6018,3.2489,3.2452
+QL_post_I.2-L3_r,flex_extension lat_bending axial_rotation,60,0.2413,1.1771,1.2718
+QL_post_I.2-L2_r,flex_extension lat_bending axial_rotation,47,0.1313,0.4904,0.7445
+QL_post_I.3-L1_r,flex_extension lat_bending axial_rotation,43,0.3118,0.8477,1.1354
+QL_post_I.3-L2_r,flex_extension lat_bending axial_rotation,60,0.1827,0.8298,0.9124
+QL_post_I.3-L3_r,flex_extension lat_bending axial_rotation,60,0.4225,2.3010,2.6064
+QL_post_I.1-L3_l,flex_extension lat_bending axial_rotation,60,0.1044,0.4783,0.6043
+QL_post_I.2-L4_l,flex_extension lat_bending axial_rotation,60,0.5557,3.4532,3.2743
+QL_post_I.2-L3_l,flex_extension lat_bending axial_rotation,60,0.2213,0.9106,1.3306
+QL_post_I.2-L2_l,flex_extension lat_bending axial_rotation,47,0.1386,0.5178,0.6786
+QL_post_I.3-L1_l,flex_extension lat_bending axial_rotation,43,0.3284,0.8931,1.1235
+QL_post_I.3-L2_l,flex_extension lat_bending axial_rotation,60,0.1721,0.7371,0.8177
+QL_post_I.3-L3_l,flex_extension lat_bending axial_rotation,60,0.3472,1.8187,2.1661
+QL_mid_L3-12.3_r,flex_extension lat_bending axial_rotation,6,0.0410,0.1278,0.1169
+QL_mid_L3-12.2_r,flex_extension lat_bending axial_rotation,6,0.0356,0.1135,0.1058
+QL_mid_L3-12.1_r,flex_extension lat_bending axial_rotation,5,0.0317,0.1295,0.0864
+QL_mid_L2-12.1_r,flex_extension lat_bending axial_rotation,4,0.0118,0.0413,0.0353
+QL_mid_L4-12.3_r,flex_extension lat_bending axial_rotation,7,0.0625,0.1769,0.1795
+QL_mid_L3-12.3_l,flex_extension lat_bending axial_rotation,6,0.0378,0.1313,0.1138
+QL_mid_L3-12.2_l,flex_extension lat_bending axial_rotation,6,0.0349,0.0989,0.1015
+QL_mid_L3-12.1_l,flex_extension lat_bending axial_rotation,5,0.0326,0.1248,0.0898
+QL_mid_L2-12.1_l,flex_extension lat_bending axial_rotation,4,0.0110,0.0409,0.0352
+QL_mid_L4-12.3_l,flex_extension lat_bending axial_rotation,7,0.0672,0.1828,0.1775
+QL_ant_I.2-T12_r,flex_extension lat_bending axial_rotation,34,0.2303,0.5789,0.9295
+QL_ant_I.3-T12_r,flex_extension lat_bending axial_rotation,31,0.2504,0.6828,0.8148
+QL_ant_I.2-12.1_r,flex_extension lat_bending axial_rotation,33,0.2620,0.6317,0.9318
+QL_ant_I.3-12.1_r,flex_extension lat_bending axial_rotation,36,0.3117,0.7495,1.1179
+QL_ant_I.3-12.2_r,flex_extension lat_bending axial_rotation,39,0.3584,1.0460,1.2136
+QL_ant_I.3-12.3_r,flex_extension lat_bending axial_rotation,43,0.3093,0.6570,0.9533
+QL_ant_I.2-T12_l,flex_extension lat_bending axial_rotation,34,0.2431,0.5788,0.9087
+QL_ant_I.3-T12_l,flex_extension lat_bending axial_rotation,31,0.2369,0.6145,0.7760
+QL_ant_I.2-12.1_l,flex_extension lat_bending axial_rotation,33,0.2594,0.5780,0.9748
+QL_ant_I.3-12.1_l,flex_extension lat_bending axial_rotation,36,0.3351,0.8196,1.0860
+QL_ant_I.3-12.2_l,flex_extension lat_bending axial_rotation,39,0.3808,0.9577,1.1909
+QL_ant_I.3-12.3_l,flex_extension lat_bending axial_rotation,43,0.3262,0.6248,0.8764
+MF_m1s_r,flex_extension lat_bending axial_rotation,6,0.0602,0.1447,0.1550
+MF_m1t.1_r,flex_extension lat_bending axial_rotation,5,0.1008,0.2557,0.2670
+MF_m1t.2_r,flex_extension lat_bending axial_rotation,33,0.2034,0.5025,0.5037
+MF_m1t.3_r,flex_extension lat_bending axial_rotation,40,0.2461,0.6755,0.8598
+MF_m2s_r,flex_extension lat_bending axial_rotation,6,0.0540,0.1718,0.1352
+MF_m2t.1_r,flex_extension lat_bending axial_rotation,38,0.1644,0.3587,0.4731
+MF_m2t.2_r,flex_extension lat_bending axial_rotation,43,0.1442,0.3090,0.6441
+MF_m2t.3_r,flex_extension lat_bending axial_rotation,41,0.1925,0.4485,0.7336
+MF_m3s_r,flex_extension lat_bending axial_rotation,41,0.0760,0.2582,0.3069
+MF_m3t.1_r,flex_extension lat_bending axial_rotation,27,0.1391,0.4256,0.4911
+MF_m3t.2_r,flex_extension lat_bending axial_rotation,27,0.1644,0.6289,0.5714
+MF_m3t.3_r,flex_extension lat_bending axial_rotation,27,0.1560,0.4677,0.5582
+MF_m4s_r,flex_extension lat_bending axial_rotation,39,0.0725,0.2319,0.3132
+MF_m4t.1_r,flex_extension lat_bending axial_rotation,36,0.1278,0.3768,0.4546
+MF_m4t.2_r,flex_extension lat_bending axial_rotation,26,0.1384,0.3867,0.4832
+MF_m4t.3_r,flex_extension lat_bending axial_rotation,28,0.1265,0.3303,0.4839
+MF_m5s_r,flex_extension lat_bending axial_rotation,60,0.4550,2.9109,2.2384
+MF_m5t.1_r,flex_extension lat_bending axial_rotation,31,0.0887,0.1866,0.3800
+MF_m5t.2_r,flex_extension lat_bending axial_rotation,37,0.0735,0.2040,0.2583
+MF_m5t.3_r,flex_extension lat_bending axial_rotation,60,0.0767,0.2372,0.2869
+MF_m1.laminar_r,flex_extension lat_bending axial_rotation,5,0.0463,0.1333,0.1053
+MF_m2.laminar_r,flex_extension lat_bending axial_rotation,6,0.0384,0.1028,0.0937
+MF_m3.laminar_r,flex_extension lat_bending axial_rotation,6,0.0353,0.0831,0.0748
+MF_m4.laminar_r,flex_extension lat_bending axial_rotation,60,0.1012,0.6541,0.4706
+MF_m5.laminar_r,flex_extension lat_bending axial_rotation,60,0.1211,0.4753,0.4710
+MF_m1s_l,flex_extension lat_bending axial_rotation,6,0.0624,0.1674,0.1513
+MF_m1t.1_l,flex_extension lat_bending axial_rotation,5,0.1006,0.2555,0.2531
+MF_m1t.2_l,flex_extension lat_bending axial_rotation,33,0.2062,0.4807,0.5235
+MF_m1t.3_l,flex_extension lat_bending axial_rotation,40,0.2466,0.6172,0.8867
+MF_m2s_l,flex_extension lat_bending axial_rotation,6,0.0605,0.1697,0.1411
+MF_m2t.1_l,flex_extension lat_bending axial_rotation,38,0.1590,0.3438,0.4808
+MF_m2t.2_l,flex_extension lat_bending axial_rotation,43,0.1418,0.3038,0.6493
+MF_m2t.3_l,flex_extension lat_bending axial_rotation,41,0.2073,0.4681,0.7485
+MF_m3s_l,flex_extension lat_bending axial_rotation,41,0.0806,0.2660,0.3126
+MF_m3t.1_l,flex_extension lat_bending axial_rotation,27,0.1506,0.4225,0.4953
+MF_m3t.2_l,flex_extension lat_bending axial_rotation,27,0.1663,0.4913,0.5481
+MF_m3t.3_l,flex_extension lat_bending axial_rotation,27,0.1717,0.5614,0.5465
+MF_m4s_l,flex_extension lat_bending axial_rotation,39,0.0754,0.2063,0.2925
+MF_m4t.1_l,flex_extension lat_bending axial_rotation,36,0.1168,0.3650,0.4598
+MF_m4t.2_l,flex_extension lat_bending axial_rotation,26,0.1492,0.4162,0.4709
+MF_m4t.3_l,flex_extension lat_bending axial_rotation,28,0.1215,0.3291,0.4694
+MF_m5s_l,flex_extension lat_bending axial_rotation,60,0.4442,2.8095,2.0055
+MF_m5t.1_l,flex_extension lat_bending axial_rotation,31,0.0907,0.2314,0.3767
+MF_m5t.2_l,flex_extension lat_bending axial_rotation,37,0.0731,0.2079,0.2627
+MF_m5t.3_l,flex_extension lat_bending axial_rotation,60,0.0783,0.2220,0.3012
+MF_m1.laminar_l,flex_extension lat_bending axial_rotation,5,0.0425,0.1350,0.1053
+MF_m2.laminar_l,flex_extension lat_bending axial_rotation,6,0.0405,0.0991,0.0954
+MF_m3.laminar_l,flex_extension lat_bending axial_rotation,6,0.0304,0.0859,0.0727
+MF_m4.laminar_l,flex_extension lat_bending axial_rotation,60,0.0794,0.4152,0.4606
+MF_m5.laminar_l,flex_extension lat_bending axial_rotation,60,0.1084,0.3796,0.4314
+EO1_r,flex_extension lat_bending axial_rotation,19,0.1670,0.3763,0.7618
+EO2_r,flex_extension lat_bending axial_rotation,17,0.1631,0.3794,0.6593
+EO3_r,flex_extension lat_bending axial_rotation,17,0.1295,0.4172,0.6500
+EO4_r,flex_extension lat_bending axial_rotation,15,0.1453,0.4325,0.5566
+EO5_r,flex_extension lat_bending axial_rotation,60,1.1684,4.4991,4.8623
+EO6_r,flex_extension lat_bending axial_rotation,60,0.9790,4.0965,4.9441
+IO1_r,flex_extension lat_bending axial_rotation,60,0.7405,2.9998,3.0856
+IO2_r,flex_extension lat_bending axial_rotation,60,0.7004,3.5100,3.7357
+IO3_r,flex_extension lat_bending axial_rotation,60,0.6913,3.0848,2.8753
+IO4_r,flex_extension lat_bending axial_rotation,60,1.0647,3.9085,4.4741
+IO5_r,flex_extension lat_bending axial_rotation,60,0.6414,1.6880,2.8918
+IO6_r,flex_extension lat_bending axial_rotation,48,0.4700,1.0570,1.4152
+EO1_l,flex_extension lat_bending axial_rotation,19,0.1572,0.3645,0.7556
+EO2_l,flex_extension lat_bending axial_rotation,17,0.1598,0.3841,0.6689
+EO3_l,flex_extension lat_bending axial_rotation,17,0.1447,0.4806,0.6458
+EO4_l,flex_extension lat_bending axial_rotation,15,0.1454,0.4297,0.5798
+EO5_l,flex_extension lat_bending axial_rotation,60,1.3030,4.8765,5.2934
+EO6_l,flex_extension lat_bending axial_rotation,60,1.0930,4.1219,4.9633
+IO1_l,flex_extension lat_bending axial_rotation,60,0.6976,3.0040,3.1262
+IO2_l,flex_extension lat_bending axial_rotation,60,0.6662,3.2379,3.4133
+IO3_l,flex_extension lat_bending axial_rotation,60,0.6398,2.5350,3.3258
+IO4_l,flex_extension lat_bending axial_rotation,60,0.9735,3.7835,4.4709
+IO5_l,flex_extension lat_bending axial_rotation,60,0.7022,1.7115,2.8105
+IO6_l,flex_extension lat_bending axial_rotation,48,0.4748,1.1001,1.4261
+DELT1_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.1562,0.6618,0.5322
+DELT2_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.1136,0.4519,0.3317
+DELT3_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.1936,0.5322,0.7177
+SUPSP_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,1.2443,4.0116,3.8621
+INFSP_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.3099,0.9146,0.5345
+SUBSC_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.3511,0.9731,0.8064
+TMIN_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.2049,0.5628,0.3508
+TMAJ_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.2233,0.7053,0.5570
+PECM1_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.3037,1.2829,0.7625
+PECM2_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.3511,1.0691,0.9008
+PECM3_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.3138,0.8641,0.5766
+LAT1_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.2383,0.6033,0.5579
+LAT2_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.3193,0.8457,0.8031
+LAT3_r,elv_angle_r shoulder_elv_r shoulder_rot_r,60,0.2702,0.7887,0.7267
+CORB_r,elv_angle_r shoulder_elv_r shoulder_rot_r,28,0.0959,0.2812,0.2320
+TRIlong_r,elv_angle_r shoulder_elv_r shoulder_rot_r elbow_flexion_r,60,4.7097,10.7158,7.0922
+TRIlat_r,elbow_flexion_r,5,0.0547,0.0970,0.1579
+TRImed_r,elbow_flexion_r,5,0.0541,0.0968,0.1828
+ANC_r,elbow_flexion_r,6,0.0163,0.0353,0.1161
+SUP_r,pro_sup_r,4,0.0108,0.0189,0.0325
+BIClong_r,elv_angle_r shoulder_elv_r shoulder_rot_r elbow_flexion_r pro_sup_r,60,2.9336,36.4720,2.5277
+BICshort_r,elv_angle_r shoulder_elv_r shoulder_rot_r elbow_flexion_r pro_sup_r,60,0.3525,0.9973,0.8042
+BRA_r,elbow_flexion_r,4,0.0067,0.0137,0.0420
+BRD_r,elbow_flexion_r pro_sup_r,20,0.2593,0.6552,0.7818
+ECRL_r,elbow_flexion_r pro_sup_r deviation_r flexion_r,60,0.3301,0.8505,0.7579
+ECRB_r,elbow_flexion_r pro_sup_r deviation_r flexion_r,60,0.0825,0.2005,0.2086
+ECU_r,elbow_flexion_r pro_sup_r deviation_r flexion_r,15,0.2218,0.4067,0.2810
+FCR_r,elbow_flexion_r pro_sup_r deviation_r flexion_r,60,0.0724,0.1826,0.1920
+FCU_r,elbow_flexion_r pro_sup_r deviation_r flexion_r,25,0.0658,0.1587,0.1460
+PL_r,elbow_flexion_r pro_sup_r deviation_r flexion_r,27,0.0854,0.2043,0.2279
+PT_r,elbow_flexion_r pro_sup_r,11,0.0182,0.0371,0.0612
+PQ_r,pro_sup_r,6,0.0092,0.0214,0.0390
+FDS5_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp5_flexion_r mcp5_abduction_r pm5_flexion_r,60,0.3271,0.8984,0.4221
+FDS4_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp4_flexion_r mcp4_abduction_r pm4_flexion_r,60,0.2441,0.7636,0.3670
+FDS3_r,pro_sup_r deviation_r flexion_r mcp3_flexion_r mcp3_abduction_r pm3_flexion_r,60,0.1150,0.3030,0.2828
+FDS2_r,pro_sup_r deviation_r flexion_r mcp2_flexion_r mcp2_abduction_r pm2_flexion_r,22,0.1229,0.3090,0.2667
+FDP5_r,pro_sup_r deviation_r flexion_r mcp5_flexion_r mcp5_abduction_r pm5_flexion_r md5_flexion_r,29,0.1322,0.2836,0.2330
+FDP4_r,pro_sup_r deviation_r flexion_r mcp4_flexion_r mcp4_abduction_r pm4_flexion_r md4_flexion_r,60,0.1316,0.2948,0.2448
+FDP3_r,pro_sup_r deviation_r flexion_r mcp3_flexion_r mcp3_abduction_r pm3_flexion_r md3_flexion_r,60,0.1313,0.3466,0.2719
+FDP2_r,pro_sup_r deviation_r flexion_r mcp2_flexion_r mcp2_abduction_r pm2_flexion_r md2_flexion_r,60,0.1545,0.3760,0.2837
+EDC5_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp5_flexion_r mcp5_abduction_r pm5_flexion_r md5_flexion_r,32,0.2254,0.4384,0.1804
+EDC4_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp4_flexion_r mcp4_abduction_r pm4_flexion_r md4_flexion_r,60,0.1705,0.4899,0.2737
+EDC3_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp3_flexion_r mcp3_abduction_r pm3_flexion_r md3_flexion_r,28,0.1724,0.4337,0.2467
+EDC2_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp2_flexion_r mcp2_abduction_r pm2_flexion_r md2_flexion_r,60,0.1605,0.4750,0.2948
+EDM_r,elbow_flexion_r pro_sup_r deviation_r flexion_r mcp5_flexion_r mcp5_abduction_r pm5_flexion_r md5_flexion_r,26,0.1392,0.2992,0.1497
+EIP_r,pro_sup_r deviation_r flexion_r mcp2_flexion_r mcp2_abduction_r pm2_flexion_r md2_flexion_r,25,0.0798,0.1728,0.1688
+EPL_r,pro_sup_r deviation_r flexion_r cmc_flexion_r cmc_abduction_r mp_flexion_r ip_flexion_r,60,0.3090,0.9838,0.9678
+EPB_r,deviation_r flexion_r cmc_flexion_r cmc_abduction_r mp_flexion_r,60,0.0995,0.4110,0.5962
+FPL_r,deviation_r flexion_r cmc_flexion_r cmc_abduction_r mp_flexion_r ip_flexion_r,60,0.2082,0.8953,1.0015
+APL_r,deviation_r flexion_r cmc_flexion_r cmc_abduction_r,23,0.1077,0.3768,0.3913
+OP_r,cmc_flexion_r cmc_abduction_r,10,0.0406,0.1013,0.1254
+RI2_r,mcp2_flexion_r mcp2_abduction_r,60,6.8068,7.8233,1.8090
+LU_RB2_r,mcp2_flexion_r mcp2_abduction_r pm2_flexion_r,13,0.0308,0.0588,0.0521
+UI_UB2_r,mcp2_flexion_r mcp2_abduction_r pm2_flexion_r,14,0.0351,0.0640,0.0632
+RI3_r,mcp3_flexion_r mcp3_abduction_r,11,0.0249,0.0423,0.0722
+LU_RB3_r,mcp3_flexion_r mcp3_abduction_r pm3_flexion_r,10,0.0284,0.0758,0.0790
+UI_UB3_r,mcp3_flexion_r mcp3_abduction_r pm3_flexion_r,15,0.0130,0.0237,0.0210
+RI4_r,mcp4_flexion_r mcp4_abduction_r,9,0.0083,0.0220,0.0540
+LU_RB4_r,mcp4_flexion_r mcp4_abduction_r pm4_flexion_r,14,0.0096,0.0203,0.0191
+UI_UB4_r,mcp4_flexion_r mcp4_abduction_r pm4_flexion_r,15,0.0106,0.0207,0.0282
+RI5_r,mcp5_flexion_r mcp5_abduction_r,10,0.0077,0.0151,0.0450
+LU_RB5_r,mcp5_flexion_r mcp5_abduction_r pm5_flexion_r,17,0.0197,0.0412,0.0576
+UI_UB5_r,mcp5_flexion_r mcp5_abduction_r pm5_flexion_r,16,0.0288,0.0528,0.0557
+DELT1_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.1445,0.5633,0.4691
+DELT2_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.1137,0.3628,0.3622
+DELT3_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2405,1.0985,0.7568
+SUPSP_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,1.2660,4.9122,3.4338
+INFSP_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2993,0.8931,0.5819
+SUBSC_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.3413,0.8300,0.7654
+TMIN_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2082,0.5760,0.3673
+TMAJ_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2046,0.6473,0.5269
+PECM1_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2869,1.1680,0.7081
+PECM2_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.3707,1.0945,0.9158
+PECM3_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.3222,0.9095,0.6347
+LAT1_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2255,0.5845,0.5050
+LAT2_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2868,0.7308,0.7530
+LAT3_l,elv_angle_l shoulder_elv_l shoulder_rot_l,60,0.2678,0.7474,0.7701
+CORB_l,elv_angle_l shoulder_elv_l shoulder_rot_l,28,0.0935,0.2599,0.2391
+TRIlong_l,elv_angle_l shoulder_elv_l shoulder_rot_l elbow_flexion_l,60,5.1692,13.9443,6.8954
+TRIlat_l,elbow_flexion_l,5,0.0537,0.0970,0.1746
+TRImed_l,elbow_flexion_l,5,0.0567,0.0970,0.1766
+ANC_l,elbow_flexion_l,6,0.0151,0.0353,0.1184
+SUP_l,pro_sup_l,4,0.0113,0.0189,0.0313
+BIClong_l,elv_angle_l shoulder_elv_l shoulder_rot_l elbow_flexion_l pro_sup_l,60,0.9487,4.4808,2.2030
+BICshort_l,elv_angle_l shoulder_elv_l shoulder_rot_l elbow_flexion_l pro_sup_l,60,0.3386,1.0891,0.8559
+BRA_l,elbow_flexion_l,4,0.0065,0.0137,0.0410
+BRD_l,elbow_flexion_l pro_sup_l,20,0.2796,0.7142,0.8370
+ECRL_l,elbow_flexion_l pro_sup_l deviation_l flexion_l,60,0.2607,0.8590,0.7075
+ECRB_l,elbow_flexion_l pro_sup_l deviation_l flexion_l,60,0.0587,0.1616,0.2180
+ECU_l,elbow_flexion_l pro_sup_l deviation_l flexion_l,15,0.2024,0.3539,0.2831
+FCR_l,elbow_flexion_l pro_sup_l deviation_l flexion_l,60,0.1146,0.2523,0.2330
+FCU_l,elbow_flexion_l pro_sup_l deviation_l flexion_l,27,0.0426,0.1022,0.1176
+PL_l,elbow_flexion_l pro_sup_l deviation_l flexion_l,28,0.0897,0.2031,0.2308
+PT_l,elbow_flexion_l pro_sup_l,11,0.0177,0.0394,0.0598
+PQ_l,pro_sup_l,6,0.0092,0.0216,0.0420
+FDS5_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp5_flexion_l mcp5_abduction_l pm5_flexion_l,60,0.2929,0.7560,0.4022
+FDS4_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp4_flexion_l mcp4_abduction_l pm4_flexion_l,60,0.2564,0.6742,0.3718
+FDS3_l,pro_sup_l deviation_l flexion_l mcp3_flexion_l mcp3_abduction_l pm3_flexion_l,60,0.1367,0.3611,0.2824
+FDS2_l,pro_sup_l deviation_l flexion_l mcp2_flexion_l mcp2_abduction_l pm2_flexion_l,22,0.1127,0.2920,0.2539
+FDP5_l,pro_sup_l deviation_l flexion_l mcp5_flexion_l mcp5_abduction_l pm5_flexion_l md5_flexion_l,28,0.1280,0.2685,0.2323
+FDP4_l,pro_sup_l deviation_l flexion_l mcp4_flexion_l mcp4_abduction_l pm4_flexion_l md4_flexion_l,60,0.1480,0.3124,0.2528
+FDP3_l,pro_sup_l deviation_l flexion_l mcp3_flexion_l mcp3_abduction_l pm3_flexion_l md3_flexion_l,60,0.1389,0.2948,0.2551
+FDP2_l,pro_sup_l deviation_l flexion_l mcp2_flexion_l mcp2_abduction_l pm2_flexion_l md2_flexion_l,60,0.1808,0.4023,0.2925
+EDC5_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp5_flexion_l mcp5_abduction_l pm5_flexion_l md5_flexion_l,32,0.1992,0.4348,0.1880
+EDC4_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp4_flexion_l mcp4_abduction_l pm4_flexion_l md4_flexion_l,60,0.1691,0.4263,0.2685
+EDC3_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp3_flexion_l mcp3_abduction_l pm3_flexion_l md3_flexion_l,30,0.1873,0.4979,0.2450
+EDC2_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp2_flexion_l mcp2_abduction_l pm2_flexion_l md2_flexion_l,60,0.1444,0.3664,0.3006
+EDM_l,elbow_flexion_l pro_sup_l deviation_l flexion_l mcp5_flexion_l mcp5_abduction_l pm5_flexion_l md5_flexion_l,26,0.1276,0.3016,0.1534
+EIP_l,pro_sup_l deviation_l flexion_l mcp2_flexion_l mcp2_abduction_l pm2_flexion_l md2_flexion_l,25,0.0730,0.1750,0.1790
+EPL_l,pro_sup_l deviation_l flexion_l cmc_flexion_l cmc_abduction_l mp_flexion_l ip_flexion_l,60,0.2817,0.9831,1.0122
+EPB_l,deviation_l flexion_l cmc_flexion_l cmc_abduction_l mp_flexion_l,60,0.0978,0.3610,0.7019
+FPL_l,deviation_l flexion_l cmc_flexion_l cmc_abduction_l mp_flexion_l ip_flexion_l,60,0.2149,0.7998,1.0311
+APL_l,deviation_l flexion_l cmc_flexion_l cmc_abduction_l,23,0.0946,0.3108,0.3527
+OP_l,cmc_flexion_l cmc_abduction_l,10,0.0413,0.1020,0.1293
+RI2_l,mcp2_flexion_l mcp2_abduction_l,60,7.0260,7.8338,1.5373
+LU_RB2_l,mcp2_flexion_l mcp2_abduction_l pm2_flexion_l,13,0.0343,0.0624,0.0517
+UI_UB2_l,mcp2_flexion_l mcp2_abduction_l pm2_flexion_l,14,0.0360,0.0646,0.0624
+RI3_l,mcp3_flexion_l mcp3_abduction_l,11,0.0215,0.0427,0.0745
+LU_RB3_l,mcp3_flexion_l mcp3_abduction_l pm3_flexion_l,10,0.0273,0.0745,0.0775
+UI_UB3_l,mcp3_flexion_l mcp3_abduction_l pm3_flexion_l,15,0.0123,0.0251,0.0208
+RI4_l,mcp4_flexion_l mcp4_abduction_l,9,0.0095,0.0221,0.0530
+LU_RB4_l,mcp4_flexion_l mcp4_abduction_l pm4_flexion_l,14,0.0096,0.0203,0.0195
+UI_UB4_l,mcp4_flexion_l mcp4_abduction_l pm4_flexion_l,15,0.0108,0.0204,0.0288
+RI5_l,mcp5_flexion_l mcp5_abduction_l,10,0.0073,0.0152,0.0464
+LU_RB5_l,mcp5_flexion_l mcp5_abduction_l pm5_flexion_l,17,0.0209,0.0423,0.0579
+UI_UB5_l,mcp5_flexion_l mcp5_abduction_l pm5_flexion_l,16,0.0279,0.0559,0.0541
+addbrev_r,hip_flexion_r hip_adduction_r hip_rotation_r,32,0.2207,0.9169,0.5534
+addlong_r,hip_flexion_r hip_adduction_r hip_rotation_r,31,0.4445,1.0713,0.6756
+addmagDist_r,hip_flexion_r hip_adduction_r hip_rotation_r,32,0.3100,0.6969,0.4554
+addmagIsch_r,hip_flexion_r hip_adduction_r hip_rotation_r,23,0.4870,1.1282,0.5363
+addmagMid_r,hip_flexion_r hip_adduction_r hip_rotation_r,39,0.1493,0.4530,0.4311
+addmagProx_r,hip_flexion_r hip_adduction_r hip_rotation_r,29,0.2003,0.8675,0.4990
+bflh_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.4204,1.0709,0.9130
+bfsh_r,knee_angle_r,6,0.0409,0.1035,0.2754
+edl_r,ankle_angle_r subtalar_angle_r mtp_angle_r,15,0.0654,0.2072,0.3121
+ehl_r,ankle_angle_r subtalar_angle_r mtp_angle_r,12,0.1130,0.2568,0.2495
+fdl_r,ankle_angle_r subtalar_angle_r mtp_angle_r,12,0.0496,0.1344,0.1863
+fhl_r,ankle_angle_r subtalar_angle_r mtp_angle_r,11,0.0404,0.1075,0.1654
+gaslat_r,knee_angle_r ankle_angle_r subtalar_angle_r,12,0.1796,0.3743,0.3442
+gasmed_r,knee_angle_r ankle_angle_r subtalar_angle_r,14,0.0454,0.1094,0.1019
+glmax1_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.2258,0.8808,0.7145
+glmax2_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.3258,0.8574,0.9067
+glmax3_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.4640,1.8506,1.4784
+glmed1_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.3378,1.1572,1.2550
+glmed2_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.3088,0.9487,1.0044
+glmed3_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.3116,1.1671,0.9931
+glmin1_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.6066,2.8017,2.3264
+glmin2_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.6140,2.4760,2.0689
+glmin3_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.4407,1.9370,1.3701
+grac_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.4157,1.2322,0.7782
+iliacus_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.4680,2.2519,1.6668
+perbrev_r,ankle_angle_r subtalar_angle_r,12,0.0496,0.1157,0.2309
+perlong_r,ankle_angle_r subtalar_angle_r,12,0.0247,0.0627,0.1912
+piri_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.2538,1.0587,0.7594
+psoas_r,hip_flexion_r hip_adduction_r hip_rotation_r,60,0.2764,1.1549,0.8620
+recfem_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.5401,1.2210,1.5317
+sart_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.3125,0.7189,0.8574
+semimem_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.4247,1.3613,0.8403
+semiten_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.5970,2.3440,1.1637
+soleus_r,ankle_angle_r subtalar_angle_r,10,0.0495,0.1334,0.2410
+tfl_r,hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r,60,0.8077,4.4914,3.3467
+tibant_r,ankle_angle_r subtalar_angle_r,10,0.0629,0.1886,0.3833
+tibpost_r,ankle_angle_r subtalar_angle_r,11,0.0270,0.0637,0.1198
+vasint_r,knee_angle_r,60,0.1134,0.1948,0.6164
+vaslat_r,knee_angle_r,60,0.1080,0.2331,0.6104
+vasmed_r,knee_angle_r,60,0.1195,0.2074,0.6067
+addbrev_l,hip_flexion_l hip_adduction_l hip_rotation_l,32,0.2403,0.8672,0.5786
+addlong_l,hip_flexion_l hip_adduction_l hip_rotation_l,31,0.4356,1.0994,0.7188
+addmagDist_l,hip_flexion_l hip_adduction_l hip_rotation_l,32,0.3015,0.7688,0.4583
+addmagIsch_l,hip_flexion_l hip_adduction_l hip_rotation_l,23,0.5140,1.2474,0.5284
+addmagMid_l,hip_flexion_l hip_adduction_l hip_rotation_l,39,0.1461,0.4378,0.4077
+addmagProx_l,hip_flexion_l hip_adduction_l hip_rotation_l,29,0.1786,0.9100,0.4761
+bflh_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,60,0.4862,1.0998,0.9007
+bfsh_l,knee_angle_l,6,0.0452,0.1034,0.2707
+edl_l,ankle_angle_l subtalar_angle_l mtp_angle_l,15,0.0762,0.2518,0.2940
+ehl_l,ankle_angle_l subtalar_angle_l mtp_angle_l,12,0.1105,0.2458,0.2649
+fdl_l,ankle_angle_l subtalar_angle_l mtp_angle_l,12,0.0499,0.1290,0.1921
+fhl_l,ankle_angle_l subtalar_angle_l mtp_angle_l,11,0.0381,0.1174,0.1709
+gaslat_l,knee_angle_l ankle_angle_l subtalar_angle_l,12,0.1741,0.3790,0.3496
+gasmed_l,knee_angle_l ankle_angle_l subtalar_angle_l,14,0.0457,0.1160,0.1032
+glmax1_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.2312,0.7511,0.6997
+glmax2_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.3064,1.0320,0.9477
+glmax3_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.4312,1.8269,1.4451
+glmed1_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.3808,1.6312,1.1426
+glmed2_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.3080,1.2830,1.0004
+glmed3_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.3112,1.1197,1.0669
+glmin1_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.6390,3.4308,2.1779
+glmin2_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.5487,2.2397,1.9280
+glmin3_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.4049,1.6298,1.3592
+grac_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,52,0.3939,1.0757,0.7653
+iliacus_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.5182,2.5387,2.1677
+perbrev_l,ankle_angle_l subtalar_angle_l,12,0.0510,0.1160,0.2328
+perlong_l,ankle_angle_l subtalar_angle_l,12,0.0268,0.0609,0.1822
+piri_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.2579,0.9732,0.8112
+psoas_l,hip_flexion_l hip_adduction_l hip_rotation_l,60,0.3062,1.6506,1.0179
+recfem_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,60,0.5419,1.2184,1.4936
+sart_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,60,0.2741,1.0047,0.9049
+semimem_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,60,0.3544,1.0594,0.8089
+semiten_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,60,0.4586,1.4334,0.9992
+soleus_l,ankle_angle_l subtalar_angle_l,10,0.0505,0.1341,0.2547
+tfl_l,hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l,60,0.8156,4.2807,2.9098
+tibant_l,ankle_angle_l subtalar_angle_l,10,0.0645,0.1666,0.3767
+tibpost_l,ankle_angle_l subtalar_angle_l,11,0.0230,0.0629,0.1254
+vasint_l,knee_angle_l,60,0.1177,0.1944,0.5665
+vaslat_l,knee_angle_l,60,0.1166,0.2333,0.6446
+vasmed_l,knee_angle_l,60,0.1209,0.2074,0.5920

@@ -1,0 +1,3 @@
+Source: https://github.com/MyoHub/myo_sim/tree/5cd36ee4d823bced6cbd7c02424458ed0fefb2b2
+License: Apache-2.0 (LICENSE)
+Fetched: 2026-11-12, unchanged. myofullbody.xml generated with: uv run python -m myo_sim.build.compose --generate

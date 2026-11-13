@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DRAFT (see MISSING.md, item 5). Sphere approximation of the MS-Human-700 foot capsules (calcn_skin_1..3,
+     toes_skin_1..2): heel capsule centre, the distal tips of the two metatarsal capsules, and both ends of the two toe
+     capsules. Positions in the MuJoCo calcn/toes body frames (identity body quats, y up once the pelvis quat is
+     dropped). Contact law and parameters copied from the SIPP standard (3d_simulations/models/sipp_runmad); the radii
+     are much smaller than SIPP's 32 mm, so stiffness and eps_depth still need tuning. -->
+<ground_contact_model force_law="huntcrossley" implicit="true" application_point="center">
+  <default>
+    <contact_point name="default" body="default" pos="0 0 0" stiffness="1e+06" dissipation="2" static_friction="0.8" dynamic_friction="0.8" viscous_friction="0.5" transition_velocity="0.2" eps_depth="0.001"/>
+  </default>
+  <geometry type="ContactSphere" name="heel_r"     body="calcn_r" pos="0.030 0.0175 -0.0065" radius="0.028"/>
+  <geometry type="ContactSphere" name="met_a_r"    body="calcn_r" pos="0.140 0.0     0.038"  radius="0.012"/>
+  <geometry type="ContactSphere" name="met_b_r"    body="calcn_r" pos="0.180 0.0    -0.030"  radius="0.012"/>
+  <geometry type="ContactSphere" name="toe_1a_r"   body="toes_r"  pos="-0.020 0.0    0.042"  radius="0.010"/>
+  <geometry type="ContactSphere" name="toe_1b_r"   body="toes_r"  pos="0.020 0.0    -0.032"  radius="0.010"/>
+  <geometry type="ContactSphere" name="toe_2a_r"   body="toes_r"  pos="0.012 -0.002  0.045"  radius="0.012"/>
+  <geometry type="ContactSphere" name="toe_2b_r"   body="toes_r"  pos="0.065 -0.002 -0.022"  radius="0.012"/>
+  <geometry type="ContactSphere" name="heel_l"     body="calcn_l" pos="0.030 0.0175  0.0065" radius="0.028"/>
+  <geometry type="ContactSphere" name="met_a_l"    body="calcn_l" pos="0.140 0.0    -0.038"  radius="0.012"/>
+  <geometry type="ContactSphere" name="met_b_l"    body="calcn_l" pos="0.180 0.0     0.030"  radius="0.012"/>
+  <geometry type="ContactSphere" name="toe_1a_l"   body="toes_l"  pos="-0.020 0.0   -0.042"  radius="0.010"/>
+  <geometry type="ContactSphere" name="toe_1b_l"   body="toes_l"  pos="0.020 0.0     0.032"  radius="0.010"/>
+  <geometry type="ContactSphere" name="toe_2a_l"   body="toes_l"  pos="0.012 -0.002 -0.045"  radius="0.012"/>
+  <geometry type="ContactSphere" name="toe_2b_l"   body="toes_l"  pos="0.065 -0.002  0.022"  radius="0.012"/>
+</ground_contact_model>

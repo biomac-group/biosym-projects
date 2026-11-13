@@ -1,0 +1,49 @@
+# Quiet standing of MyoFullBody, one node, started from make_prior_guess (as examples/standing3d.yaml).
+# Paths are relative to the project folder (run.py changes into it).
+collocation:
+  name: myofullbody_standing
+  settings:
+    model: models/myofullbody/myofullbody.yaml
+    nnodes: 1
+    output:
+      file: results/myofullbody/standing_seed1.pkl
+    tol: 1e-4
+    acceptable_tol: 1e-4
+    dual_inf_tol: 1e-4
+    constr_viol_tol: 1e-3
+    max_iter: 3000
+
+  objectives:
+    - name: effort_term           # squared muscle activation, volume weighted
+      weight: 1
+
+  constraints:
+    - name: dynamics
+
+  bounds:
+    fix:
+      pelvis_rotation: 0.0
+      pelvis_tx: 0.0
+      pelvis_tz: 0.0
+    coordinate_ranges_unit: deg
+    coordinate_ranges:          # narrower ranges for quiet standing (also the range of the random start of the guess)
+      pelvis_list: [-5, 5]
+      pelvis_tilt: [-30, 30]
+      pelvis_ty: [0.5, 1.5]     # metres; the default standing height is 1.0
+      hip_flexion_*: [-30, 30]
+      hip_adduction_*: [-10, 10]
+      hip_rotation_*: [-30, 30]
+      knee_angle_*: [0, 30]     # MyoFullBody: knee flexion positive
+      ankle_angle_*: [-30, 30]
+      subtalar_angle_*: [-19, 19]
+      mtp_angle_*: [-28, 28]
+      flex_extension: [-15, 15]
+      lat_bending: [-10, 10]
+      axial_rotation: [-10, 10]
+      elv_angle_*: [-30, 90]
+      shoulder_elv_*: [0, 40]
+      shoulder_rot_*: [-30, 30]
+      elbow_flexion_*: [0, 90]
+      pro_sup_*: [-60, 60]
+      deviation_*: [-9, 20]
+      flexion_*: [-30, 30]

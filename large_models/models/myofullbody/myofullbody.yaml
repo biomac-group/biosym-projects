@@ -1,0 +1,515 @@
+# MyoFullBody (MyoHub myo_sim) for biosym, written by scripts/make_model.py -- do not edit, rerun the script.
+#   * myofullbody.xml: body tree of the MJCF with jointless bodies merged, y up, joint couplings as <equality>
+#   * myofullbody_muscles.xml: 416 MuJoCo muscles (rigid tendon) with polynomial paths fitted to the MuJoCo tendons
+#   * contact_implicit.xml: spheres approximating the foot geometry, implicit Hunt-Crossley (SIPP law)
+#   * joints: toolbox passive joint model (K1 1 N m/rad, B 1 N m s/rad, quadratic walls 5000 N m/rad^2 outside the
+#     MuJoCo ranges), toes: Falisse et al. 2022 spring (25 N m/rad, 2 N m s/rad, no wall)
+#     changed per joint (model_config.passive_overrides): flexion_r {'spring_stiffness': 20.0}, flexion_l {'spring_stiffness': 20.0}, deviation_r {'spring_stiffness': 20.0}, deviation_l {'spring_stiffness': 20.0}
+model:
+  name: myofullbody.xml
+  additional_parameters:
+    ground_contact:
+      replace_existing: true
+      file: contact_implicit.xml
+    actuators:
+      replace_existing: true
+      file: myofullbody_muscles.xml
+      activation_dynamics: true      # MuJoCo's activation dynamics with an excitation state per muscle
+    visuals:
+      file: visuals.npz              # meshes and muscle lines for the viewer (scripts/make_visuals.py)
+    joints:
+      flex_extension:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.35
+        passive_upper: 0.7538
+      lat_bending:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.4363
+        passive_upper: 0.4363
+      axial_rotation:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.7854
+        passive_upper: 0.7854
+      elv_angle_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.658
+        passive_upper: 2.269
+      shoulder_elv_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 3.142
+      shoulder_rot_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.571
+        passive_upper: 2.094
+      elbow_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 2.269
+      pro_sup_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.5708
+        passive_upper: 1.5708
+      deviation_r:
+        damping: 1
+        spring_stiffness: 20
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.174533
+        passive_upper: 0.436332
+      flexion_r:
+        damping: 1
+        spring_stiffness: 20
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.785398
+        passive_upper: 0.785398
+      cmc_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.78
+        passive_upper: 0.7
+      cmc_abduction_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.5
+        passive_upper: 0.78
+      mp_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.785398
+        passive_upper: 0.698132
+      ip_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.309
+        passive_upper: 0.436332
+      mcp2_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp2_abduction_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm2_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md2_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp3_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp3_abduction_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm3_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md3_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp4_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp4_abduction_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm4_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md4_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp5_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp5_abduction_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm5_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md5_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      elv_angle_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.658
+        passive_upper: 2.269
+      shoulder_elv_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 3.142
+      shoulder_rot_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.571
+        passive_upper: 2.094
+      elbow_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 2.269
+      pro_sup_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.5708
+        passive_upper: 1.5708
+      deviation_l:
+        damping: 1
+        spring_stiffness: 20
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.174533
+        passive_upper: 0.436332
+      flexion_l:
+        damping: 1
+        spring_stiffness: 20
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.785398
+        passive_upper: 0.785398
+      cmc_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.78
+        passive_upper: 0.7
+      cmc_abduction_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.5
+        passive_upper: 0.78
+      mp_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.785398
+        passive_upper: 0.698132
+      ip_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -1.309
+        passive_upper: 0.436332
+      mcp2_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp2_abduction_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm2_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md2_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp3_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp3_abduction_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm3_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md3_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp4_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp4_abduction_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm4_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md4_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp5_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      mcp5_abduction_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.261799
+        passive_upper: 0.261799
+      pm5_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      md5_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 1.5708
+      hip_flexion_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.523599
+        passive_upper: 2.0944
+      hip_adduction_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.872665
+        passive_upper: 0.523599
+      hip_rotation_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.698132
+        passive_upper: 0.698132
+      knee_angle_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 2.0944
+      ankle_angle_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.698132
+        passive_upper: 0.523599
+      subtalar_angle_r:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.349066
+        passive_upper: 0.349066
+      mtp_angle_r:
+        damping: 2
+        spring_stiffness: 25
+        spring_ref: 0
+        limit_quadratic: 0
+      hip_flexion_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.523599
+        passive_upper: 2.0944
+      hip_adduction_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.872665
+        passive_upper: 0.523599
+      hip_rotation_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.698132
+        passive_upper: 0.698132
+      knee_angle_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: 0
+        passive_upper: 2.0944
+      ankle_angle_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.698132
+        passive_upper: 0.523599
+      subtalar_angle_l:
+        damping: 1
+        spring_stiffness: 1
+        spring_ref: 0
+        limit_quadratic: 5000
+        passive_lower: -0.349066
+        passive_upper: 0.349066
+      mtp_angle_l:
+        damping: 2
+        spring_stiffness: 25
+        spring_ref: 0
+        limit_quadratic: 0
+
+

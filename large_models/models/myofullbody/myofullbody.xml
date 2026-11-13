@@ -1,0 +1,395 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="myofullbody_biosym">
+  <compiler angle="radian" />
+  <option gravity="0 -9.81 0" />
+  <worldbody>
+    <body name="pelvis" pos="0 0 0">
+      <inertial pos="-0.0415774711172 -0.0178581040247 5.64710345868e-09" mass="18.446" fullinertia="0.141225486525 0.155051092552 0.0857222361024 -0.00934769492136 3.58229527242e-05 -6.12590074008e-09" />
+      <joint name="pelvis_tx" type="slide" axis="1 0 0" range="-5 5" />
+      <joint name="pelvis_ty" type="slide" axis="0 1 0" range="-1 3" />
+      <joint name="pelvis_tz" type="slide" axis="0 0 1" range="-3 3" />
+      <joint name="pelvis_tilt" type="hinge" axis="0 0 1" range="-1.5708 1.5708" />
+      <joint name="pelvis_list" type="hinge" axis="1 0 0" range="-1.5708 1.5708" />
+      <joint name="pelvis_rotation" type="hinge" axis="0 1 0" range="-1.5708 1.5708" />
+      <body name="lumbar5" pos="-0.0979999689528 0.071 -7.8008e-05" quat="0.999999920798 0 -0.000398000031522 0">
+        <inertial pos="0.053744 0.02 0" mass="1.824" fullinertia="0.01219 0.01765 0.00546 4.33680868994e-19 0 0" />
+        <joint name="flex_extension" type="hinge" axis="0 0 1" range="-1.35 0.7538" />
+        <joint name="lat_bending" type="hinge" axis="1 0 0" range="-0.4363 0.4363" />
+        <joint name="axial_rotation" type="hinge" axis="0 1 0" range="-0.7854 0.7854" />
+        <body name="Abdomen" pos="0.098 0.0711 0">
+          <inertial pos="0 0 0" mass="0.01" fullinertia="0.001 0.001 0.001 0 0 0" />
+          <joint name="Abs_t1" type="slide" axis="1 0 0" range="-0.05 0.015" />
+          <joint name="Abs_t2" type="slide" axis="0 1 0" range="-0.03 0.03" />
+          <joint name="Abs_r3" type="hinge" axis="0 0 1" range="-0.7 0.7" />
+        </body>
+        <body name="lumbar4" pos="0.009 0.0321 0">
+          <inertial pos="0.0170296 0.018 0" mass="1.799" fullinertia="0.01123 0.01643 0.0052 0 0 0" />
+          <joint name="L4_L5_FE" type="hinge" axis="0 0 1" range="-0.18607 0.083953" />
+          <joint name="L4_L5_LB" type="hinge" axis="1 0 0" range="-0.0889703 0.089703" />
+          <joint name="L4_L5_AR" type="hinge" axis="0 1 0" range="-0.316881 0.316881" />
+          <body name="lumbar3" pos="0.0006 0.0332 0">
+            <inertial pos="0.0136848 0.018 0" mass="1.67" fullinertia="0.01066 0.01608 0.00551 0 0 0" />
+            <joint name="L3_L4_FE" type="hinge" axis="0 0 1" range="-0.249288 0.0925752" />
+            <joint name="L3_L4_LB" type="hinge" axis="1 0 0" range="-0.156893 0.156893" />
+            <joint name="L3_L4_AR" type="hinge" axis="0 1 0" range="-0.0296881 0.0296881" />
+            <body name="lumbar2" pos="-0.0067 0.0351 0">
+              <inertial pos="0.0245272 0.018 0" mass="1.689" fullinertia="0.01091 0.01682 0.00591 0 0 0" />
+              <joint name="L2_L3_FE" type="hinge" axis="0 0 1" range="-0.282282 0.104828" />
+              <joint name="L2_L3_LB" type="hinge" axis="1 0 0" range="-0.159075 0.159075" />
+              <joint name="L2_L3_AR" type="hinge" axis="0 1 0" range="-0.104426 0.104426" />
+              <body name="lumbar1" pos="-0.0114 0.0288 0">
+                <inertial pos="0.00888575072605 0.178266006922 2.89933650266e-06" mass="22.674468479" fullinertia="0.423166134737 0.174621597359 0.381372050134 0.012410832398 -1.34904163878e-06 -1.19314814024e-05" />
+                <joint name="L1_L2_FE" type="hinge" axis="0 0 1" range="-0.31161 0.115719" />
+                <joint name="L1_L2_LB" type="hinge" axis="1 0 0" range="-0.0820244 0.0820244" />
+                <joint name="L1_L2_AR" type="hinge" axis="0 1 0" range="-0.0826981 0.0826981" />
+                <body name="clavicle_r" pos="0.030835 0.28793 0.025465">
+                  <inertial pos="-0.011096 0.0063723 0.054168" mass="0.156" fullinertia="0.001 0.001 0.001 -6.43745039913e-20 -2.71050543121e-20 -1.35525271561e-20" />
+                  <joint name="sternoclavicular_r2_r" type="hinge" axis="0.0152999953228 0.989298697571 -0.145099955643" range="-0.75 0" />
+                  <joint name="sternoclavicular_r3_r" type="hinge" axis="-0.994472543667 0 -0.10499695182" range="0 0.318" />
+                  <body name="clavphant_r" pos="-0.01433 0.02007 0.1355">
+                    <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                    <joint name="unrotscap_r3_r" type="hinge" axis="-0.994472543667 0 -0.10499695182" range="-0.318 0" />
+                    <joint name="unrotscap_r2_r" type="hinge" axis="0.0152999953228 0.989298697571 -0.145099955643" range="0 0.75" />
+                    <body name="scapula_r" pos="0 0 0">
+                      <inertial pos="-0.054694 -0.035032 -0.043734" mass="0.70396" fullinertia="0.00139163593443 0.0012648649487 0.00137918911687 0.000318920643541 0.00036344312142 0.00028125903647" />
+                      <joint name="acromioclavicular_r2_r" type="hinge" axis="0.157094932444 0.947268592643 -0.279290879896" range="-0.152 0" />
+                      <joint name="acromioclavicular_r3_r" type="hinge" axis="-0.754084039566 0.297594015615 0.58548703072" range="0 1.228" />
+                      <joint name="acromioclavicular_r1_r" type="hinge" axis="0.637699853329 0.118599972722 0.761099824947" range="0 0.552" />
+                      <body name="scapphant_r" pos="-0.00955 -0.034 0.009">
+                        <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                        <joint name="unrothum_r1_r" type="hinge" axis="0.637699853329 0.118599972722 0.761099824947" range="-0.552 0" />
+                        <joint name="unrothum_r3_r" type="hinge" axis="-0.754084039566 0.297594015615 0.58548703072" range="-1.228 0" />
+                        <joint name="unrothum_r2_r" type="hinge" axis="0.157094932444 0.947268592643 -0.279290879896" range="0 0.152" />
+                        <body name="humphant_r" pos="0 0 0">
+                          <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                          <joint name="elv_angle_r" type="hinge" axis="0.00479995099109 0.999089206291 0.0423995087546" range="-1.658 2.269" />
+                          <body name="humphant1_r" pos="0 0 0">
+                            <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                            <joint name="shoulder_elv_r" type="hinge" axis="-0.998261372964 0.00229991085928 0.058897722005" range="0 3.142" />
+                            <joint name="shoulder1_r2_r" type="hinge" axis="0.00479995099109 0.999089206291 0.0423995087546" range="-2.242 1.658" />
+                            <body name="humerus_r" pos="0 0 0">
+                              <inertial pos="0.018064 -0.140141 -0.012746" mass="1.99757" fullinertia="0.0122776061908 0.00255132699318 0.012578916816 -0.000347416390462 -0.000232505814705 0.0012292973341" />
+                              <joint name="shoulder_rot_r" type="hinge" axis="0.00479995099109 0.999089206291 0.0423995087546" range="-1.571 2.094" />
+                              <body name="ulna_r" pos="0.0061 -0.2904 -0.0123">
+                                <inertial pos="0.00971783 -0.0959509 0.024286" mass="1.1053" fullinertia="0.00541390920322 0.00130357338766 0.00495435740913 0.000305774760367 -7.31873651494e-05 0.00105149572918" />
+                                <joint name="elbow_flexion_r" type="hinge" axis="0.0494004108398 0.0366003080311 0.998108219013" range="0 2.269" />
+                                <body name="radius_r" pos="0.0004 -0.0115 0.02">
+                                  <inertial pos="0.0336341 -0.181559 0.0156" mass="0.23359" fullinertia="0.001 0.001 0.001 0 0 1.08420217249e-19" />
+                                  <joint name="pro_sup_r" type="hinge" axis="-0.0171609938418 0.992665643782 -0.119667957057" range="-1.5708 1.5708" />
+                                  <body name="lunate_r" pos="0.018 -0.242 0.025">
+                                    <inertial pos="0.000211889039292 -0.0200707488321 -0.000752427773437" mass="0.365596221561" fullinertia="0.00115902897666 0.00109581526427 0.00120545050904 7.7495867297e-06 -2.85176248987e-06 1.7365935553e-05" />
+                                    <joint name="deviation_r" type="hinge" axis="0 0 1" range="-0.174533 0.436332" />
+                                    <joint name="flexion_r" type="hinge" axis="1 0 0" range="-0.785398 0.785398" />
+                                    <body name="firstmc_r" pos="0.026485 -0.025023 -0.010481">
+                                      <inertial pos="0.0078 -0.0147 -0.006" mass="0.016" fullinertia="1.19999976303e-06 7.09998352285e-07 1.30000288469e-06 4.69998551743e-07 2.50000067784e-07 -4.10000813747e-07" />
+                                      <joint name="cmc_flexion_r" type="hinge" axis="-0.0423989905778 -0.665285852156 0.745383834356" range="-0.78 0.7" />
+                                      <joint name="cmc_abduction_r" type="hinge" axis="0.495557014959 0.731736022089 0.467959014126" range="-0.5 0.78" />
+                                      <body name="proximal_thumb_r" pos="0.0165 -0.0292 -0.0127">
+                                        <inertial pos="0.0096 -0.0163 -0.0063" mass="0.0079" fullinertia="4.2e-07 4.2e-07 4.2e-07 0 0 0" />
+                                        <joint name="mp_flexion_r" type="hinge" axis="-0.0842949954256 -0.203487988957 0.975441947066" range="-0.785398 0.698132" />
+                                        <body name="distal_thumb_r" pos="0.014 -0.0259 -0.0101">
+                                          <inertial pos="0.0056 -0.0104 -0.0044" mass="0.003" fullinertia="5.0000003062e-08 3.00000001532e-08 4.99999967848e-08 9.99999361396e-09 1.00000000766e-08 -1.00000064626e-08" />
+                                          <joint name="ip_flexion_r" type="hinge" axis="-0.0501020057522 -0.479623055065 0.876043100578" range="-1.309 0.436332" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="2proxph_r" pos="0.022178 -0.080917 0.010979">
+                                      <inertial pos="0 0 0" mass="0.01" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp2_flexion_r" type="hinge" axis="0.995012535991 0.0997499534832 0" range="0 1.5708" />
+                                      <joint name="mcp2_abduction_r" type="hinge" axis="-0.0549989800786 0.0858989688862 0.994784639676" range="-0.261799 0.261799" />
+                                      <body name="midph2_r" pos="0.00751 -0.041273 0.007326">
+                                        <inertial pos="0 0 0" mass="0.003" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm2_flexion_r" type="hinge" axis="0.975170276468 0.0998334283036 -0.197677056043" range="0 1.5708" />
+                                        <body name="distph2_r" pos="0.003333 -0.024888 0.00122">
+                                          <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md2_flexion_r" type="hinge" axis="0.995004165284 0.0998334165838 0" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="3proxph_r" pos="0.004709 -0.080583 0.011482">
+                                      <inertial pos="0 0 0" mass="0.01" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp3_flexion_r" type="hinge" axis="0.980066658912 0 0.198668930858" range="0 1.5708" />
+                                      <joint name="mcp3_abduction_r" type="hinge" axis="-0.198668930858 0 0.980066658912" range="-0.261799 0.261799" />
+                                      <body name="midph3_r" pos="0.00165 -0.044211 0.00623">
+                                        <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm3_flexion_r" type="hinge" axis="1 0 0" range="0 1.5708" />
+                                        <body name="distph3_r" pos="0.001365 -0.029047 0.001954">
+                                          <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md3_flexion_r" type="hinge" axis="1 0 0" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="4proxph_r" pos="-0.009884 -0.079262 0.005667">
+                                      <inertial pos="0 0 0" mass="0.01" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp4_flexion_r" type="hinge" axis="0.900446900516 0 0.434965951944" range="0 1.5708" />
+                                      <joint name="mcp4_abduction_r" type="hinge" axis="-0.434965951944 0 0.900446900516" range="-0.261799 0.261799" />
+                                      <body name="midph4_r" pos="-0.003528 -0.040255 0.001345">
+                                        <inertial pos="0 0 0" mass="0.003" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm4_flexion_r" type="hinge" axis="0.921061117691 0 0.389418049759" range="0 1.5708" />
+                                        <body name="distph4_r" pos="-0.002317 -0.024789 0.000563">
+                                          <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md4_flexion_r" type="hinge" axis="0.825335958296 0 0.564641971469" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="5proxph_r" pos="-0.019501 -0.071168 -0.003387">
+                                      <inertial pos="0 0 0" mass="0.005" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp5_flexion_r" type="hinge" axis="0.825335958296 0 0.564641971469" range="0 1.5708" />
+                                      <joint name="mcp5_abduction_r" type="hinge" axis="-0.564641971469 0 0.825335958296" range="-0.261799 0.261799" />
+                                      <body name="midph5_r" pos="-0.005279 -0.035563 -0.002879">
+                                        <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm5_flexion_r" type="hinge" axis="0.825335958296 0 0.564641971469" range="0 1.5708" />
+                                        <body name="distph5_r" pos="-0.002871 -0.020677 -0.002243">
+                                          <inertial pos="0 0 0" mass="0.001" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md5_flexion_r" type="hinge" axis="0.867728253554 -0.149438043666 0.474042138517" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+                <body name="clavicle_l" pos="0.030835 0.28793 -0.025465">
+                  <inertial pos="-0.011096 0.0063723 -0.054168" mass="0.156" fullinertia="0.001 0.001 0.001 -6.43745039913e-20 2.71050543121e-20 1.35525271561e-20" />
+                  <joint name="sternoclavicular_r2_l" type="hinge" axis="-0.0152999953228 -0.989298697571 -0.145099955643" range="-0.75 0" />
+                  <joint name="sternoclavicular_r3_l" type="hinge" axis="0.994472543667 0 -0.10499695182" range="0 0.318" />
+                  <body name="clavphant_l" pos="-0.01433 0.02007 -0.1355">
+                    <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                    <joint name="unrotscap_r3_l" type="hinge" axis="0.994472543667 0 -0.10499695182" range="-0.318 0" />
+                    <joint name="unrotscap_r2_l" type="hinge" axis="-0.0152999953228 -0.989298697571 -0.145099955643" range="0 0.75" />
+                    <body name="scapula_l" pos="0 0 0">
+                      <inertial pos="-0.054694 -0.035032 0.043734" mass="0.70396" fullinertia="0.00139163593443 0.0012648649487 0.00137918911687 0.000318920643541 -0.00036344312142 -0.00028125903647" />
+                      <joint name="acromioclavicular_r2_l" type="hinge" axis="-0.157094932444 -0.947268592643 -0.279290879896" range="-0.152 0" />
+                      <joint name="acromioclavicular_r3_l" type="hinge" axis="0.754084039566 -0.297594015615 0.58548703072" range="0 1.228" />
+                      <joint name="acromioclavicular_r1_l" type="hinge" axis="-0.637699853329 -0.118599972722 0.761099824947" range="0 0.552" />
+                      <body name="scapphant_l" pos="-0.00955 -0.034 -0.009">
+                        <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                        <joint name="unrothum_r1_l" type="hinge" axis="-0.637699853329 -0.118599972722 0.761099824947" range="-0.552 0" />
+                        <joint name="unrothum_r3_l" type="hinge" axis="0.754084039566 -0.297594015615 0.58548703072" range="-1.228 0" />
+                        <joint name="unrothum_r2_l" type="hinge" axis="-0.157094932444 -0.947268592643 -0.279290879896" range="0 0.152" />
+                        <body name="humphant_l" pos="0 0 0">
+                          <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                          <joint name="elv_angle_l" type="hinge" axis="-0.00479995099109 -0.999089206291 0.0423995087546" range="-1.658 2.269" />
+                          <body name="humphant1_l" pos="0 0 0">
+                            <inertial pos="0 0 0" mass="0.001" fullinertia="1 1 1 0 0 0" />
+                            <joint name="shoulder_elv_l" type="hinge" axis="0.998261372964 -0.00229991085928 0.058897722005" range="0 3.142" />
+                            <joint name="shoulder1_r2_l" type="hinge" axis="-0.00479995099109 -0.999089206291 0.0423995087546" range="-2.242 1.658" />
+                            <body name="humerus_l" pos="0 0 0">
+                              <inertial pos="0.018064 -0.140141 0.012746" mass="1.99757" fullinertia="0.0122776061908 0.00255132699318 0.012578916816 -0.000347416390462 0.000232505814705 -0.0012292973341" />
+                              <joint name="shoulder_rot_l" type="hinge" axis="-0.00479995099109 -0.999089206291 0.0423995087546" range="-1.571 2.094" />
+                              <body name="ulna_l" pos="0.0061 -0.2904 0.0123">
+                                <inertial pos="0.00971783 -0.0959509 -0.024286" mass="1.1053" fullinertia="0.00541390920322 0.00130357338766 0.00495435740913 0.000305774760367 7.31873651494e-05 -0.00105149572918" />
+                                <joint name="elbow_flexion_l" type="hinge" axis="-0.0494004108398 -0.0366003080311 0.998108219013" range="0 2.269" />
+                                <body name="radius_l" pos="0.0004 -0.0115 -0.02">
+                                  <inertial pos="0.0336341 -0.181559 -0.0156" mass="0.23359" fullinertia="0.001 0.001 0.001 0 0 -1.08420217249e-19" />
+                                  <joint name="pro_sup_l" type="hinge" axis="0.0171609938418 -0.992665643782 -0.119667957057" range="-1.5708 1.5708" />
+                                  <body name="lunate_l" pos="0.018 -0.242 -0.025">
+                                    <inertial pos="0.000211889039292 -0.0200707488321 0.000752427773437" mass="0.365596221561" fullinertia="0.00115902897666 0.00109581526427 0.00120545050904 7.7495867297e-06 2.85176248987e-06 -1.7365935553e-05" />
+                                    <joint name="deviation_l" type="hinge" axis="0 0 1" range="-0.174533 0.436332" />
+                                    <joint name="flexion_l" type="hinge" axis="-1 0 0" range="-0.785398 0.785398" />
+                                    <body name="firstmc_l" pos="0.026485 -0.025023 0.010481">
+                                      <inertial pos="0.0078 -0.0147 0.006" mass="0.016" fullinertia="1.19999976303e-06 7.09998352285e-07 1.30000288469e-06 4.69998551743e-07 -2.50000067784e-07 4.10000813747e-07" />
+                                      <joint name="cmc_flexion_l" type="hinge" axis="0.0423989905778 0.665285852156 0.745383834356" range="-0.78 0.7" />
+                                      <joint name="cmc_abduction_l" type="hinge" axis="-0.495557014959 -0.731736022089 0.467959014126" range="-0.5 0.78" />
+                                      <body name="proximal_thumb_l" pos="0.0165 -0.0292 0.0127">
+                                        <inertial pos="0.0096 -0.0163 0.0063" mass="0.0079" fullinertia="4.2e-07 4.2e-07 4.2e-07 0 0 0" />
+                                        <joint name="mp_flexion_l" type="hinge" axis="0.0842949954256 0.203487988957 0.975441947066" range="-0.785398 0.698132" />
+                                        <body name="distal_thumb_l" pos="0.014 -0.0259 0.0101">
+                                          <inertial pos="0.0056 -0.0104 0.0044" mass="0.003" fullinertia="5.0000003062e-08 3.00000001532e-08 4.99999967848e-08 9.99999361396e-09 -1.00000000766e-08 1.00000064626e-08" />
+                                          <joint name="ip_flexion_l" type="hinge" axis="0.0501020057522 0.479623055065 0.876043100578" range="-1.309 0.436332" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="2proxph_l" pos="0.022178 -0.080917 -0.010979">
+                                      <inertial pos="0 0 0" mass="0.01" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp2_flexion_l" type="hinge" axis="-0.995012535991 -0.0997499534832 0" range="0 1.5708" />
+                                      <joint name="mcp2_abduction_l" type="hinge" axis="0.0549989800786 -0.0858989688862 0.994784639676" range="-0.261799 0.261799" />
+                                      <body name="midph2_l" pos="0.00751 -0.041273 -0.007326">
+                                        <inertial pos="0 0 0" mass="0.003" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm2_flexion_l" type="hinge" axis="-0.975170276468 -0.0998334283036 -0.197677056043" range="0 1.5708" />
+                                        <body name="distph2_l" pos="0.003333 -0.024888 -0.00122">
+                                          <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md2_flexion_l" type="hinge" axis="-0.995004165284 -0.0998334165838 0" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="3proxph_l" pos="0.004709 -0.080583 -0.011482">
+                                      <inertial pos="0 0 0" mass="0.01" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp3_flexion_l" type="hinge" axis="-0.980066658912 0 0.198668930858" range="0 1.5708" />
+                                      <joint name="mcp3_abduction_l" type="hinge" axis="0.198668930858 0 0.980066658912" range="-0.261799 0.261799" />
+                                      <body name="midph3_l" pos="0.00165 -0.044211 -0.00623">
+                                        <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm3_flexion_l" type="hinge" axis="-1 0 0" range="0 1.5708" />
+                                        <body name="distph3_l" pos="0.001365 -0.029047 -0.001954">
+                                          <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md3_flexion_l" type="hinge" axis="-1 0 0" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="4proxph_l" pos="-0.009884 -0.079262 -0.005667">
+                                      <inertial pos="0 0 0" mass="0.01" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp4_flexion_l" type="hinge" axis="-0.900446900516 0 0.434965951944" range="0 1.5708" />
+                                      <joint name="mcp4_abduction_l" type="hinge" axis="0.434965951944 0 0.900446900516" range="-0.261799 0.261799" />
+                                      <body name="midph4_l" pos="-0.003528 -0.040255 -0.001345">
+                                        <inertial pos="0 0 0" mass="0.003" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm4_flexion_l" type="hinge" axis="-0.921061117691 0 0.389418049759" range="0 1.5708" />
+                                        <body name="distph4_l" pos="-0.002317 -0.024789 -0.000563">
+                                          <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md4_flexion_l" type="hinge" axis="-0.825335958296 0 0.564641971469" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                    <body name="5proxph_l" pos="-0.019501 -0.071168 0.003387">
+                                      <inertial pos="0 0 0" mass="0.005" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                      <joint name="mcp5_flexion_l" type="hinge" axis="-0.825335958296 0 0.564641971469" range="0 1.5708" />
+                                      <joint name="mcp5_abduction_l" type="hinge" axis="0.564641971469 0 0.825335958296" range="-0.261799 0.261799" />
+                                      <body name="midph5_l" pos="-0.005279 -0.035563 0.002879">
+                                        <inertial pos="0 0 0" mass="0.002" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                        <joint name="pm5_flexion_l" type="hinge" axis="-0.825335958296 0 0.564641971469" range="0 1.5708" />
+                                        <body name="distph5_l" pos="-0.002871 -0.020677 0.002243">
+                                          <inertial pos="0 0 0" mass="0.001" fullinertia="0.0001 0.0001 0.0001 0 0 0" />
+                                          <joint name="md5_flexion_l" type="hinge" axis="-0.867728253554 0.149438043666 0.474042138517" range="0 1.5708" />
+                                        </body>
+                                      </body>
+                                    </body>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="femur_r" pos="-0.0562135041706 -0.078534746339 0.0772600248663" quat="0.999999920798 -1.58403987454e-07 -6.30447908986e-11 0.000397999905433">
+        <inertial pos="0 -0.195 -0.0005" mass="8.4" fullinertia="0.1694 0.0245278523844 0.169399047616 0 0 -0.00037144848095" />
+        <joint name="hip_flexion_r" type="hinge" axis="0 0 1" range="-0.523599 2.0944" />
+        <joint name="hip_adduction_r" type="hinge" axis="1 0 0" range="-0.872665 0.523599" />
+        <joint name="hip_rotation_r" type="hinge" axis="0 1 0" range="-0.698132 0.698132" />
+        <body name="tibia_r" pos="-4.6e-07 -0.404425 -0.00126526">
+          <inertial pos="-0.005 -0.175 0.0025" mass="3.8" fullinertia="0.0771016073385 0.00697548824224 0.0771445744193 -0.00200524174441 2.86487459998e-05 0.0010027054057" />
+          <joint name="knee_angle_translation2_r" type="slide" axis="0.992245548442 0.123981943577 -0.00878915600017" range="7.69254e-11 0.006792" />
+          <joint name="knee_angle_translation1_r" type="slide" axis="-0.124292958632 0.989761670582 -0.0701647766473" range="9.53733e-08 0.00159883" />
+          <joint name="knee_angle_r" type="hinge" axis="-3.9837287899e-10 -0.0707130785202 -0.997496697" range="0 2.0944" />
+          <joint name="knee_angle_rotation2_r" type="hinge" axis="0.992245548442 0.123981943577 -0.00878915600017" range="-0.00167821 0.0335354" />
+          <joint name="knee_angle_rotation3_r" type="hinge" axis="-0.124292958632 0.989761670582 -0.0701647766473" range="-0.262788 0.262788" />
+          <body name="talus_r" pos="-0.01 -0.4 0">
+            <inertial pos="0.00593728976627 0.000343512211352 -0.00168399250451" mass="0.0212064920021" fullinertia="2.50112531244e-06 4.18867340166e-06 2.99978447003e-06 -1.97368229806e-07 2.59874650025e-08 -2.99156195612e-08" />
+            <joint name="ankle_angle_r" type="hinge" axis="-0.105014035676 -0.174022059119 0.979126332631" range="-0.698132 0.523599" />
+            <body name="calcn_r" pos="-0.04877 -0.04195 0.00792">
+              <inertial pos="0.0821377 0.0108024 -0.000944392" mass="1.14" fullinertia="0.000971186368396 0.00311783933361 0.002960201298 0.000200250987761 0.000147891682891 -1.36837627415e-05" />
+              <joint name="subtalar_angle_r" type="hinge" axis="0.787180020856 0.604747016023 -0.120949003205" range="-0.349066 0.349066" />
+              <body name="toes_r" pos="0.1788 -0.002 0.00108">
+                <inertial pos="0.0190640069218 -0.00141530181656 0.00963988544353" mass="0.0422843151791" fullinertia="2.18150949691e-05 4.60150551658e-05 2.47786843401e-05 1.38015310133e-06 1.52100713078e-05 -2.58213581768e-07" />
+                <joint name="mtp_angle_r" type="hinge" axis="0.580954185263 0 -0.813936259559" range="-0.523599 0.523599" />
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="patella_r" pos="-0.00809 -0.40796 0">
+          <inertial pos="0.0024746672472 0.0279666977488 0.000739698554574" mass="0.0278528602913" fullinertia="6.75290713171e-06 3.65710308685e-06 4.76459266308e-06 -2.23000960093e-07 1.22857244912e-08 8.33827320922e-08" />
+          <joint name="knee_angle_beta_translation2_r" type="slide" axis="0 1 0" range="-0.0408267 -0.0108281" />
+          <joint name="knee_angle_beta_translation1_r" type="slide" axis="1 0 0" range="-0.0227731 0.0524192" />
+          <joint name="knee_angle_beta_rotation1_r" type="hinge" axis="0 0 1" range="-1.79241 0.010506" />
+        </body>
+      </body>
+      <body name="femur_l" pos="-0.0562135041316 -0.0785347952921 -0.0772599751337" quat="0.999999920798 -1.58403987454e-07 -6.30447908986e-11 0.000397999905433">
+        <inertial pos="0 -0.195 0.0005" mass="8.4" fullinertia="0.1694 0.0245278523844 0.169399047616 0 0 0.00037144848095" />
+        <joint name="hip_flexion_l" type="hinge" axis="0 0 1" range="-0.523599 2.0944" />
+        <joint name="hip_adduction_l" type="hinge" axis="-1 0 0" range="-0.872665 0.523599" />
+        <joint name="hip_rotation_l" type="hinge" axis="0 -1 0" range="-0.698132 0.698132" />
+        <body name="tibia_l" pos="-4.6e-07 -0.404425 0.00126526">
+          <inertial pos="-0.005 -0.175 -0.0025" mass="3.8" fullinertia="0.0771016074985 0.00697548563828 0.0771445768632 -0.0020052389816 -2.86462621494e-05 -0.0010026198896" />
+          <joint name="knee_angle_translation2_l" type="slide" axis="0.992245548442 0.123981943577 0.00878915600017" range="7.69254e-11 0.006792" />
+          <joint name="knee_angle_translation1_l" type="slide" axis="-0.124292958632 0.989761670582 0.0701647766473" range="9.53733e-08 0.00159883" />
+          <joint name="knee_angle_l" type="hinge" axis="3.9837287899e-10 0.0707130785202 -0.997496697" range="0 2.0944" />
+          <joint name="knee_angle_rotation2_l" type="hinge" axis="-0.992245548442 -0.123981943577 -0.00878915600017" range="-0.00167821 0.0335354" />
+          <joint name="knee_angle_rotation3_l" type="hinge" axis="0.124292958632 -0.989761670582 -0.0701647766473" range="-0.262788 0.262788" />
+          <body name="talus_l" pos="-0.01 -0.4 0">
+            <inertial pos="0.00593728976627 0.000343512211352 0.00168399250451" mass="0.0212064920021" fullinertia="2.50112531244e-06 4.18867340166e-06 2.99978447003e-06 -1.97368229806e-07 -2.59874650025e-08 2.99156195612e-08" />
+            <joint name="ankle_angle_l" type="hinge" axis="0.105014035676 0.174022059119 0.979126332631" range="-0.698132 0.523599" />
+            <body name="calcn_l" pos="-0.04877 -0.04195 -0.00792">
+              <inertial pos="0.0821377 0.0108024 0.000944392" mass="1.14" fullinertia="0.000971186368396 0.00311783933361 0.002960201298 0.000200250987761 -0.000147891682891 1.36837627415e-05" />
+              <joint name="subtalar_angle_l" type="hinge" axis="-0.787180020856 -0.604747016023 -0.120949003205" range="-0.349066 0.349066" />
+              <body name="toes_l" pos="0.1788 -0.002 -0.00108">
+                <inertial pos="0.0190640069218 -0.00141530181656 -0.00963988544353" mass="0.0422843151791" fullinertia="2.18150949691e-05 4.60150551658e-05 2.47786843401e-05 1.38015310133e-06 -1.52100713078e-05 2.58213581768e-07" />
+                <joint name="mtp_angle_l" type="hinge" axis="-0.580954185263 0 -0.813936259559" range="-0.523599 0.523599" />
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="patella_l" pos="-0.00809 -0.40796 0">
+          <inertial pos="0.0024746672472 0.0279666977488 -0.000739698554574" mass="0.0278528602913" fullinertia="6.75290713171e-06 3.65710308685e-06 4.76459266308e-06 -2.23000960093e-07 -1.22857244912e-08 -8.33827320922e-08" />
+          <joint name="knee_angle_beta_translation2_l" type="slide" axis="0 1 0" range="-0.0408267 -0.0108281" />
+          <joint name="knee_angle_beta_translation1_l" type="slide" axis="1 0 0" range="-0.0227731 0.0524192" />
+          <joint name="knee_angle_beta_rotation1_l" type="hinge" axis="0 0 1" range="-1.79241 0.010506" />
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint joint1="Abs_r3" polycoef="0 0.6429 0 0 0" joint2="flex_extension" />
+    <joint joint1="L4_L5_FE" polycoef="0 0.185 0 0 0" joint2="flex_extension" />
+    <joint joint1="L4_L5_AR" polycoef="0 0.03778 0 0 0" joint2="axial_rotation" />
+    <joint joint1="L4_L5_LB" polycoef="0 0.1811 0 0 0" joint2="lat_bending" />
+    <joint joint1="L3_L4_FE" polycoef="0 0.204 0 0 0" joint2="flex_extension" />
+    <joint joint1="L3_L4_AR" polycoef="0 0.03778 0 0 0" joint2="axial_rotation" />
+    <joint joint1="L3_L4_LB" polycoef="0 0.2453 0 0 0" joint2="lat_bending" />
+    <joint joint1="L2_L3_FE" polycoef="0 0.231 0 0 0" joint2="flex_extension" />
+    <joint joint1="L2_L3_AR" polycoef="0 0.03111 0 0 0" joint2="axial_rotation" />
+    <joint joint1="L2_L3_LB" polycoef="0 0.2501 0 0 0" joint2="lat_bending" />
+    <joint joint1="L1_L2_FE" polycoef="0 0.255 0 0 0" joint2="flex_extension" />
+    <joint joint1="L1_L2_AR" polycoef="0 0.02889 0 0 0" joint2="axial_rotation" />
+    <joint joint1="L1_L2_LB" polycoef="0 0.188 0 0 0" joint2="lat_bending" />
+    <joint joint1="Abs_t1" polycoef="0 0 0 0 0" />
+    <joint joint1="Abs_t2" polycoef="0 0 0 0 0" />
+    <joint joint1="sternoclavicular_r2_r" polycoef="0 -0.242 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="sternoclavicular_r3_r" polycoef="0 0.1025 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="unrotscap_r2_r" polycoef="0 0.242 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="unrotscap_r3_r" polycoef="0 -0.1025 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="acromioclavicular_r1_r" polycoef="0 0.178 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="acromioclavicular_r2_r" polycoef="0 -0.049 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="acromioclavicular_r3_r" polycoef="0 0.396 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="unrothum_r1_r" polycoef="0 -0.178 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="unrothum_r2_r" polycoef="0 0.049 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="unrothum_r3_r" polycoef="0 -0.396 0 0 0" joint2="shoulder_elv_r" />
+    <joint joint1="shoulder1_r2_r" polycoef="0 -1 0 0 0" joint2="elv_angle_r" />
+    <joint joint1="sternoclavicular_r2_l" polycoef="0 -0.242 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="sternoclavicular_r3_l" polycoef="0 0.1025 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="unrotscap_r2_l" polycoef="0 0.242 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="unrotscap_r3_l" polycoef="0 -0.1025 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="acromioclavicular_r1_l" polycoef="0 0.178 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="acromioclavicular_r2_l" polycoef="0 -0.049 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="acromioclavicular_r3_l" polycoef="0 0.396 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="unrothum_r1_l" polycoef="0 -0.178 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="unrothum_r2_l" polycoef="0 0.049 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="unrothum_r3_l" polycoef="0 -0.396 0 0 0" joint2="shoulder_elv_l" />
+    <joint joint1="shoulder1_r2_l" polycoef="0 -1 0 0 0" joint2="elv_angle_l" />
+    <joint joint1="knee_angle_translation2_r" polycoef="7.69254e-11 0.00587971 -0.00125622 -2.61846e-06 6.24355e-07" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_translation1_r" polycoef="9.53733e-08 0.00312879 -0.00230804 0.000561561 5.68366e-07" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_rotation2_r" polycoef="-1.47325e-08 0.0791 -0.0328478 -0.0252183 0.0108321" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_rotation3_r" polycoef="1.08939e-08 0.369499 -0.169478 0.0251643 3.50498e-07" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_beta_translation2_r" polycoef="-0.0108281 -0.0487847 0.00927644 0.0131673 -0.00349673" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_beta_translation1_r" polycoef="0.0524192 -0.0150188 -0.0340522 0.0133393 -0.000879151" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_beta_rotation1_r" polycoef="0.010506 0.0247615 -1.31647 0.716337 -0.138302" joint2="knee_angle_r" />
+    <joint joint1="knee_angle_translation2_l" polycoef="7.69254e-11 0.00587971 -0.00125622 -2.61846e-06 6.24355e-07" joint2="knee_angle_l" />
+    <joint joint1="knee_angle_translation1_l" polycoef="9.53733e-08 0.00312879 -0.00230804 0.000561561 5.68366e-07" joint2="knee_angle_l" />
+    <joint joint1="knee_angle_rotation2_l" polycoef="-1.47325e-08 0.0791 -0.0328478 -0.0252183 0.0108321" joint2="knee_angle_l" />
+    <joint joint1="knee_angle_rotation3_l" polycoef="1.08939e-08 0.369499 -0.169478 0.0251643 3.50498e-07" joint2="knee_angle_l" />
+    <joint joint1="knee_angle_beta_translation2_l" polycoef="-0.0108281 -0.0487847 0.00927644 0.0131673 -0.00349673" joint2="knee_angle_l" />
+    <joint joint1="knee_angle_beta_translation1_l" polycoef="0.0524192 -0.0150188 -0.0340522 0.0133393 -0.000879151" joint2="knee_angle_l" />
+    <joint joint1="knee_angle_beta_rotation1_l" polycoef="0.010506 0.0247615 -1.31647 0.716337 -0.138302" joint2="knee_angle_l" />
+  </equality>
+</mujoco>

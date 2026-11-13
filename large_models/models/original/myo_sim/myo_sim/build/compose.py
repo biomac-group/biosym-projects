@@ -1,0 +1,900 @@
+"""MjSpec.attach()-based composition of the myo_sim musculoskeletal models.
+
+This is the production build pipeline: ``build_spec(name)`` is the public entry
+point and every composed model in ``MODEL_REGISTRY`` is compiled through it.
+
+Run from the repository root:
+
+    uv run python -m myo_sim.build.compose
+    uv run python -m myo_sim.build.compose --model myotorso_arm_r
+    uv run python -m myo_sim.build.compose --view
+
+The model registry below controls how each composed model is built. The default
+`myotorso_arms` model loads the right arm and mirrors it in memory to create the
+left arm before attaching both specs to the torso.
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+import time
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass, replace
+from enum import Enum
+from pathlib import Path
+from typing import Any, Literal, Optional
+
+import mujoco
+
+from myo_sim import MODELS_DIR
+
+try:
+    from .hand import prune_arm_spec_to_hand
+    from .keyframes import add_posture_keyframes
+    from .utils import (
+        MirrorRules,
+        add_contact_pairs,
+        add_sensors,
+        build_child_xml_from_components,
+        build_mirrored_child_xml,
+        find_body,
+        find_site,
+    )
+except ImportError:
+    from hand import prune_arm_spec_to_hand
+    from keyframes import add_posture_keyframes
+    from utils import (
+        MirrorRules,
+        add_contact_pairs,
+        add_sensors,
+        build_child_xml_from_components,
+        build_mirrored_child_xml,
+        find_body,
+        find_site,
+    )
+
+
+ROOT = MODELS_DIR
+GENERATE_XML_TARGETS: dict[str, Path] = {
+    "myoarms": Path("arm/myoarms.xml"),
+    "myotorso": Path("torso/myotorso.xml"),
+    "myolegs": Path("leg/myolegs.xml"),
+    "myolegs26": Path("leg/myolegs26.xml"),
+    "myofullbody": Path("myofullbody.xml"),
+}
+
+TORSO_ABDOMEN_TENDONS_XML = ROOT / "torso" / "assets" / "myotorso_abdomen_tendon.xml"
+TORSO_ABDOMEN_MUSCLES_XML = ROOT / "torso" / "assets" / "myotorso_abdomen_muscle.xml"
+TORSO_ASSETS_XML = ROOT / "torso" / "assets" / "myotorso_assets.xml"
+TORSO_TENDONS_XML = ROOT / "torso" / "assets" / "myotorso_tendon.xml"
+TORSO_MUSCLES_XML = ROOT / "torso" / "assets" / "myotorso_muscle.xml"
+TORSO_CHAIN_XML = ROOT / "torso" / "assets" / "myotorso_chain.xml"
+HEAD_SIMPLE_ASSETS_XML = ROOT / "head" / "assets" / "myohead_simple_assets.xml"
+SCENE_XML = ROOT / "scene" / "myosuite_scene.xml"
+MUSCLEMIMIC_SCENE_XML = ROOT / "scene" / "myosuite_scene_musclemimic.xml"
+TORSO_ABDOMEN_UNLOCKED_JOINTS = {"flex_extension", "lat_bending", "axial_rotation"}
+ARM_CONTACTS_XML = ROOT / "contacts" / "myoarm_contacts.xml"
+HAND_CONTACTS_XML = ROOT / "contacts" / "myohand_contacts.xml"
+LEG_CONTACTS_XML = ROOT / "contacts" / "myolegs_contacts.xml"
+FULLBODY_CONTACTS_XML = ROOT / "contacts" / "myofullbody_contacts.xml"
+FULLBODY_SENSORS_XML = ROOT / "sensors" / "myofullbody_sensors.xml"
+LEGS_SENSORS_XML = ROOT / "sensors" / "myolegs_sensors.xml"
+LEGS26_CONTACTS_XML = ROOT / "contacts" / "myolegs26_contacts.xml"
+LEGS26_SENSORS_XML = ROOT / "sensors" / "myolegs26_sensors.xml"
+RIGHT_ARM_ASSETS_XML = ROOT / "arm" / "assets" / "myoarm_r_assets.xml"
+RIGHT_ARM_TENDONS_XML = ROOT / "arm" / "assets" / "myoarm_r_tendon.xml"
+RIGHT_ARM_MUSCLES_XML = ROOT / "arm" / "assets" / "myoarm_r_muscle.xml"
+RIGHT_ARM_CHAIN_XML = ROOT / "arm" / "assets" / "myoarm_r_chain.xml"
+LEGS_ASSETS_XML = ROOT / "leg" / "assets" / "myolegs_assets.xml"
+LEGS_TENDONS_XML = ROOT / "leg" / "assets" / "myolegs_tendon.xml"
+LEGS_MUSCLES_XML = ROOT / "leg" / "assets" / "myolegs_muscle.xml"
+LEGS_CHAIN_XML = ROOT / "leg" / "assets" / "myolegs_chain.xml"
+LEGS26_ASSETS_XML = ROOT / "leg" / "assets" / "myolegs26_assets.xml"
+LEGS26_TENDONS_XML = ROOT / "leg" / "assets" / "myolegs26_tendon.xml"
+LEGS26_MUSCLES_XML = ROOT / "leg" / "assets" / "myolegs26_muscle.xml"
+LEGS26_CHAIN_XML = ROOT / "leg" / "assets" / "myolegs26_chain.xml"
+
+TORSO_ROOT_BODY = "Torso"
+RIGHT_ARM_ATTACH_SITE = "arm_attach_r"
+LEFT_ARM_ATTACH_SITE = "arm_attach_l"
+ROOT_POS = (0, 0, 1)
+
+LEFT_ARM_STRATEGY_MIRROR_RIGHT = "mirror_right_to_left"
+LEFT_ARM_STRATEGY_NONE = "none"
+
+
+class BuildStrategy(str, Enum):
+    TORSO_BODY = "torso_body"
+    TORSO_ARMS = "torso_arms"
+    ARMS_BODY = "arms_body"
+    RIGHT_ARM_BODY = "right_arm_body"
+    RIGHT_HAND = "right_hand"
+    BOTH_HANDS = "both_hands"
+    FULLBODY = "fullbody"
+    LEGS_BODY = "legs_body"
+    LEGS26_BODY = "legs26_body"
+    TORSO_ABDOMEN = "torso_abdomen"
+    LEGS_ABDOMEN = "legs_abdomen"
+
+
+@dataclass(frozen=True)
+class ModelRegistration:
+    # TODO: too specific fields. The concept of a left arm is not always relevant, and should be handled
+    #       by the builder of the relevant subspec. Similarly, not all models should  have fields associated with
+    #       contacts specific to the arm, or the body. Each subspec/submodel should have a relevant and specific config,
+    #       with generalist fields, and perhaps some specific ones from a childclass of ModelRegistration.
+    name: str
+    description: str
+    build_strategy: BuildStrategy
+    build_kwargs: dict[str, Any]
+    mirror_rules: MirrorRules = MirrorRules()
+
+
+MODEL_REGISTRY = {
+    "myotorso": ModelRegistration(
+        name="myotorso",
+        build_strategy=BuildStrategy.TORSO_BODY,
+        description="Torso scaffold with torso muscles",
+        build_kwargs={"include_left_arm_contacts": False, "include_arm_contacts": False},
+    ),
+    "myotorso_abdomen": ModelRegistration(
+        name="myotorso_abdomen",
+        build_strategy=BuildStrategy.TORSO_ABDOMEN,
+        description="Simple abdomen scaffold",
+        build_kwargs={"left_arm_strategy": LEFT_ARM_STRATEGY_NONE, "include_left_arm_contacts": False},
+    ),
+    "myotorso_arms": ModelRegistration(
+        name="myotorso_arms",
+        build_strategy=BuildStrategy.TORSO_ARMS,
+        description="Torso + right arm + mirrored-right left arm",
+        build_kwargs={"left_arm_strategy": LEFT_ARM_STRATEGY_MIRROR_RIGHT, "include_left_arm_contacts": True},
+    ),
+    "myotorso_arm_r": ModelRegistration(
+        name="myotorso_arm_r",
+        build_strategy=BuildStrategy.TORSO_ARMS,
+        description="Torso + right arm only",
+        build_kwargs={"include_left_arm_contacts": False},
+    ),
+    "myoarms": ModelRegistration(
+        name="myoarms",
+        build_strategy=BuildStrategy.ARMS_BODY,
+        description="Passive anatomical torso scaffold + mirrored arms",
+        build_kwargs={"include_left_arm_contacts": True},
+    ),
+    "myoarm_r": ModelRegistration(
+        name="myoarm_r",
+        build_strategy=BuildStrategy.RIGHT_ARM_BODY,
+        description="Passive anatomical torso scaffold + right arm",
+        build_kwargs={"include_left_arm_contacts": False},
+    ),
+    "myohands": ModelRegistration(
+        name="myohands",
+        build_strategy=BuildStrategy.BOTH_HANDS,
+        description="Passive anatomical torso scaffold + right hand + mirrored-left hand from pruned arms",
+        build_kwargs={"include_arm_contacts": False, "include_left_arm_contacts": False},
+    ),
+    "myohand_r": ModelRegistration(
+        name="myohand_r",
+        build_strategy=BuildStrategy.RIGHT_HAND,
+        description="Passive anatomical torso scaffold + right hand derived from pruned right arm",
+        build_kwargs={"include_arm_contacts": False, "include_left_arm_contacts": False},
+    ),
+    "myolegs": ModelRegistration(
+        name="myolegs",
+        build_strategy=BuildStrategy.LEGS_BODY,
+        description="Passive anatomical torso scaffold + legs",
+        build_kwargs={"include_legs": True, "include_arm_contacts": False, "include_left_arm_contacts": False},
+    ),
+    "myolegs26": ModelRegistration(
+        name="myolegs26",
+        build_strategy=BuildStrategy.LEGS26_BODY,
+        description="Passive anatomical torso scaffold + 26-muscle legs",
+        build_kwargs={"include_legs": False, "include_arm_contacts": False, "include_left_arm_contacts": False},
+    ),
+    "myolegs_abdomen": ModelRegistration(
+        name="myolegs_abdomen",
+        build_strategy=BuildStrategy.LEGS_ABDOMEN,
+        description="Simple abdomen scaffold plus legs",
+        build_kwargs={"include_legs": False, "include_arm_contacts": False, "include_left_arm_contacts": False},
+    ),
+    "myofullbody": ModelRegistration(
+        name="myofullbody",
+        build_strategy=BuildStrategy.FULLBODY,
+        description="Full body: torso + mirrored arms + legs",
+        build_kwargs={
+            "left_arm_strategy": LEFT_ARM_STRATEGY_MIRROR_RIGHT,
+            "include_left_arm_contacts": True,
+            "include_legs": True,
+            "include_fullbody_contacts": True,
+            "add_root_freejoint": True,
+            "root_pos": (-0.025, 0.1, 1),
+        },
+    ),
+}
+
+# Legacy names that resolve to a MODEL_REGISTRY entry. This is the single source
+# of truth for load()-level aliases; every value must be a key of MODEL_REGISTRY.
+ALIASES: dict[str, str] = {
+    "hand": "myohand_r",
+    "myohand": "myohand_r",
+    "myoarm": "myoarm_r",
+}
+
+
+def pair_is_supported(pair: dict, include_left_arm_contacts: bool) -> bool:
+    if include_left_arm_contacts:
+        return True
+    return not (pair.get("geom1", "").endswith("_l") or pair.get("geom2", "").endswith("_l"))
+
+
+def build_torso_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    """Build the single-torso model from component XMLs."""
+    # TODO: Investigate spec only alternative
+    scene_xml = MUSCLEMIMIC_SCENE_XML if registration.build_strategy == BuildStrategy.FULLBODY else SCENE_XML
+    torso_xml = build_child_xml_from_components(
+        model_name="myotorso_attach",
+        compiler_meshdir=ROOT,
+        assets_xml=TORSO_ASSETS_XML,
+        tendons_xml=TORSO_TENDONS_XML,
+        muscles_xml=TORSO_MUSCLES_XML,
+        chain_xml=TORSO_CHAIN_XML,
+        root_body_name=TORSO_ROOT_BODY,
+        root_site_name="torso_root_attach",
+        extra_assets_xmls=(HEAD_SIMPLE_ASSETS_XML,),
+        scene_xmls=(scene_xml,),
+    )
+    torso = mujoco.MjSpec.from_string(torso_xml)
+    torso.compiler.balanceinertia = True
+    root_body = find_body(torso, TORSO_ROOT_BODY)
+    root_body.name = "Full Body"
+    root_body.pos = registration.build_kwargs.get("root_pos", ROOT_POS)
+    if registration.build_kwargs.get("add_root_freejoint", False):
+        root_body.add_freejoint(name="root")
+
+    if registration.build_kwargs.get("include_arm_contacts", True):
+        add_contact_pairs(
+            torso,
+            ARM_CONTACTS_XML,
+            include_pair=lambda pair: pair_is_supported(
+                pair, registration.build_kwargs.get("include_left_arm_contacts", False)
+            ),
+        )
+    if registration.build_kwargs.get("include_legs", False):
+        add_contact_pairs(torso, LEG_CONTACTS_XML)
+    if registration.build_kwargs.get("include_fullbody_contacts", False):
+        add_contact_pairs(torso, FULLBODY_CONTACTS_XML)
+    return torso
+
+
+def build_torso_body_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    return build_torso_spec(registration)
+
+
+def make_torso_passive(torso: mujoco.MjSpec) -> None:
+    """Remove torso dynamics so the anatomical torso acts as a fixed scaffold."""
+    for equality in list(torso.equalities):
+        torso.delete(equality)
+    for actuator in list(torso.actuators):
+        torso.delete(actuator)
+    for tendon in list(torso.tendons):
+        torso.delete(tendon)
+    for joint in list(torso.joints):
+        torso.delete(joint)
+
+
+def build_passive_torso_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_torso_spec(registration)
+    make_torso_passive(torso)
+    return torso
+
+
+def build_right_arm_spec(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    right_arm_xml = build_child_xml_from_components(
+        model_name="myoarm_r_attach",
+        compiler_meshdir=ROOT,
+        assets_xml=RIGHT_ARM_ASSETS_XML,
+        tendons_xml=RIGHT_ARM_TENDONS_XML,
+        muscles_xml=RIGHT_ARM_MUSCLES_XML,
+        chain_xml=RIGHT_ARM_CHAIN_XML,
+        root_body_name="myoarm_r_root",
+        root_site_name="arm_root_attach_r",
+    )
+    right_arm = mujoco.MjSpec.from_string(right_arm_xml)
+    right_arm.compiler.balanceinertia = True
+
+    if registration and registration.build_kwargs.get("disable_finger_collisions", False):
+        right_arm = disable_finger_collision(right_arm)
+
+    return right_arm
+
+
+def build_mirrored_left_arm_spec(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    left_arm_xml = build_mirrored_child_xml(
+        model_name="myoarm_l_mirrored_from_r",
+        compiler_meshdir=ROOT,
+        source_assets_xml=RIGHT_ARM_ASSETS_XML,
+        source_tendons_xml=RIGHT_ARM_TENDONS_XML,
+        source_muscles_xml=RIGHT_ARM_MUSCLES_XML,
+        source_chain_xml=RIGHT_ARM_CHAIN_XML,
+        root_body_name="myoarm_l_root",
+        root_site_name="arm_root_attach_l",
+        rules=registration.mirror_rules if registration else MirrorRules(),
+    )
+    left_arm = mujoco.MjSpec.from_string(left_arm_xml)
+    left_arm.compiler.balanceinertia = True
+    if registration and registration.build_kwargs.get("disable_finger_collisions", False):
+        left_arm = disable_finger_collision(left_arm)
+    return left_arm
+
+
+def build_legs_spec(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    legs_xml = build_child_xml_from_components(
+        model_name="myolegs_attach",
+        compiler_meshdir=ROOT,
+        assets_xml=LEGS_ASSETS_XML,
+        tendons_xml=LEGS_TENDONS_XML,
+        muscles_xml=LEGS_MUSCLES_XML,
+        chain_xml=LEGS_CHAIN_XML,
+        root_body_name="myolegs_root",
+        root_site_name="legs_root_attach",
+    )
+    legs = mujoco.MjSpec.from_string(legs_xml)
+    legs.compiler.balanceinertia = True
+    add_sensors(legs, LEGS_SENSORS_XML)
+    return legs
+
+
+def build_legs26_spec(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    legs_xml = build_child_xml_from_components(
+        model_name="myolegs26_attach",
+        compiler_meshdir=ROOT,
+        assets_xml=LEGS26_ASSETS_XML,
+        tendons_xml=LEGS26_TENDONS_XML,
+        muscles_xml=LEGS26_MUSCLES_XML,
+        chain_xml=LEGS26_CHAIN_XML,
+        root_body_name="myolegs26_root",
+        root_site_name="legs26_root_attach",
+    )
+    legs = mujoco.MjSpec.from_string(legs_xml)
+    legs.compiler.balanceinertia = True
+    add_contact_pairs(legs, LEGS26_CONTACTS_XML)
+    add_sensors(legs, LEGS26_SENSORS_XML)
+    return legs
+
+
+def _build_torso_abdomen_from_xml(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    # TODO: Investigate spec-only approach to have the same effect
+    abdomen_xml = build_child_xml_from_components(
+        model_name="myotorso_abdomen_attach",
+        compiler_meshdir=ROOT,
+        assets_xml=TORSO_ASSETS_XML,
+        tendons_xml=TORSO_ABDOMEN_TENDONS_XML,
+        muscles_xml=TORSO_ABDOMEN_MUSCLES_XML,
+        chain_xml=TORSO_CHAIN_XML,
+        root_body_name="root",
+        root_site_name="torso_abdomen_root_attach",
+        extra_assets_xmls=(HEAD_SIMPLE_ASSETS_XML,),
+        scene_xmls=(SCENE_XML,),
+    )
+    abdomen = mujoco.MjSpec.from_string(abdomen_xml)
+    abdomen.compiler.balanceinertia = True
+    lock_torso_abdomen_joints(abdomen)
+    return abdomen
+
+
+def lock_torso_abdomen_joints(abdomen: mujoco.MjSpec) -> None:
+    """Keep only the base L5 torso joints movable for the simple abdomen scaffold."""
+    for equality in list(abdomen.equalities):
+        abdomen.delete(equality)
+    for joint in list(abdomen.joints):
+        if joint.name not in TORSO_ABDOMEN_UNLOCKED_JOINTS:
+            abdomen.delete(joint)
+
+
+def build_arms_body_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_passive_torso_spec(registration)
+    torso.attach(build_right_arm_spec(registration), prefix="", suffix="", site=find_site(torso, RIGHT_ARM_ATTACH_SITE))
+    torso.attach(
+        build_mirrored_left_arm_spec(registration),
+        prefix="",
+        suffix="",
+        site=find_site(torso, LEFT_ARM_ATTACH_SITE),
+    )
+
+    return torso
+
+
+def build_right_arm_body_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_passive_torso_spec(registration)
+    torso.attach(build_right_arm_spec(registration), prefix="", suffix="", site=find_site(torso, RIGHT_ARM_ATTACH_SITE))
+
+    return torso
+
+
+def build_right_hand_from_arm_spec(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    hand = build_right_arm_spec(registration)
+    hand.modelname = "myohand_r_from_myoarm_r"
+    hand.compiler.balanceinertia = True
+    prune_arm_spec_to_hand(hand, "r")
+    return hand
+
+
+def build_left_hand_from_arm_spec(registration: Optional[ModelRegistration] = None) -> mujoco.MjSpec:
+    hand = build_mirrored_left_arm_spec(registration)
+    hand.modelname = "myohand_l_from_mirrored_myoarm_r"
+    prune_arm_spec_to_hand(hand, "l")
+    return hand
+
+
+def build_right_hand_torso_from_arm_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_passive_torso_spec(registration)
+    torso.attach(
+        build_right_hand_from_arm_spec(registration), prefix="", suffix="", site=find_site(torso, RIGHT_ARM_ATTACH_SITE)
+    )
+    add_contact_pairs(
+        torso,
+        HAND_CONTACTS_XML,
+        include_pair=lambda pair: pair_is_supported(pair, include_left_arm_contacts=False),
+    )
+    return torso
+
+
+def build_both_hands_torso_from_arm_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_passive_torso_spec(registration)
+    torso.attach(
+        build_right_hand_from_arm_spec(registration), prefix="", suffix="", site=find_site(torso, RIGHT_ARM_ATTACH_SITE)
+    )
+    torso.attach(build_left_hand_from_arm_spec(registration), prefix="", suffix="", site=find_site(torso, LEFT_ARM_ATTACH_SITE))
+    add_contact_pairs(torso, HAND_CONTACTS_XML)
+    return torso
+
+
+def build_left_arm_spec(registration: ModelRegistration) -> mujoco.MjSpec | None:
+    if registration.build_kwargs.get("left_arm_strategy", LEFT_ARM_STRATEGY_NONE) == LEFT_ARM_STRATEGY_MIRROR_RIGHT:
+        return build_mirrored_left_arm_spec(registration)
+    if registration.build_kwargs.get("left_arm_strategy", LEFT_ARM_STRATEGY_NONE) == LEFT_ARM_STRATEGY_NONE:
+        return None
+    raise ValueError(
+        f"Unknown left arm strategy for {registration.name}: {registration.build_kwargs.get('left_arm_strategy', '')}"
+    )
+
+
+def build_torso_arms_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_torso_spec(registration)
+    right_arm = build_right_arm_spec(registration)
+    left_arm = build_left_arm_spec(registration)
+
+    torso.attach(right_arm, prefix="", suffix="", site=find_site(torso, RIGHT_ARM_ATTACH_SITE))
+    if left_arm is not None:
+        torso.attach(left_arm, prefix="", suffix="", site=find_site(torso, LEFT_ARM_ATTACH_SITE))
+
+    return torso
+
+
+def build_fullbody_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_torso_spec(registration)
+    torso.attach(build_right_arm_spec(registration), prefix="", suffix="", site=find_site(torso, RIGHT_ARM_ATTACH_SITE))
+    left_arm = build_left_arm_spec(registration)
+    if left_arm is not None:
+        torso.attach(left_arm, prefix="", suffix="", site=find_site(torso, LEFT_ARM_ATTACH_SITE))
+
+    add_sensors(torso, FULLBODY_SENSORS_XML)
+
+    full_body = find_body(torso, "Full Body")
+    legs_frame = full_body.add_frame(name="legs_attach")
+    torso.attach(build_legs_spec(registration), prefix="", suffix="", frame=legs_frame)
+
+    return torso
+
+
+def build_legs_body_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_passive_torso_spec(registration)
+    root_body = find_body(torso, "Full Body")
+    root_body.add_freejoint(name="root")
+    legs_frame = root_body.add_frame(name="legs_attach")
+    torso.attach(build_legs_spec(registration), prefix="", suffix="", frame=legs_frame)
+
+    return torso
+
+
+def build_legs26_body_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    torso = build_passive_torso_spec(registration)
+    root_body = find_body(torso, "Full Body")
+    root_body.add_freejoint(name="root")
+    legs_frame = root_body.add_frame(name="legs_attach")
+    torso.attach(build_legs26_spec(registration), prefix="", suffix="", frame=legs_frame)
+    return torso
+
+
+def build_torso_abdomen_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    abdomen = _build_torso_abdomen_from_xml(registration)
+    root_body = find_body(abdomen, "root")
+    root_body.pos = registration.build_kwargs.get("root_pos", ROOT_POS)
+    return abdomen
+
+
+def build_legs_abdomen_spec(registration: ModelRegistration) -> mujoco.MjSpec:
+    abdomen = build_torso_abdomen_spec(registration)
+    root_body = find_body(abdomen, "root")
+    root_body.add_freejoint(name="root")
+    legs_frame = root_body.add_frame(name="legs_attach")
+    abdomen.attach(build_legs_spec(registration), prefix="", suffix="", frame=legs_frame)
+    add_contact_pairs(abdomen, LEG_CONTACTS_XML)
+
+    return abdomen
+
+
+SPEC_BUILDERS = {
+    BuildStrategy.TORSO_BODY: build_torso_body_spec,
+    BuildStrategy.TORSO_ARMS: build_torso_arms_spec,
+    BuildStrategy.ARMS_BODY: build_arms_body_spec,
+    BuildStrategy.RIGHT_ARM_BODY: build_right_arm_body_spec,
+    BuildStrategy.RIGHT_HAND: build_right_hand_torso_from_arm_spec,
+    BuildStrategy.BOTH_HANDS: build_both_hands_torso_from_arm_spec,
+    BuildStrategy.FULLBODY: build_fullbody_spec,
+    BuildStrategy.LEGS_BODY: build_legs_body_spec,
+    BuildStrategy.LEGS26_BODY: build_legs26_body_spec,
+    BuildStrategy.TORSO_ABDOMEN: build_torso_abdomen_spec,
+    BuildStrategy.LEGS_ABDOMEN: build_legs_abdomen_spec,
+}
+
+
+def apply_site_pos_overrides(spec: mujoco.MjSpec, site_pos_overrides: dict[str, tuple[float, float, float]]) -> None:
+    """Override the local ``pos`` of named sites on an already-composed spec.
+
+    Lets downstream consumers reposition specific attachment/wrap sites (e.g.
+    a project-specific pelvis-attachment convention) without forking the
+    whole chain XML just to shift a handful of coordinates. Fails loudly on
+    unknown names rather than silently no-op, so stale overrides surface as
+    an error instead of a silent divergence.
+
+    Args:
+        spec: A composed (uncompiled) MjSpec, as returned by build_spec().
+        site_pos_overrides: Mapping of site name to a new local (x, y, z) pos.
+
+    Raises:
+        KeyError: If any named site is not present in the spec.
+    """
+    missing = [name for name in site_pos_overrides if spec.site(name) is None]
+    if missing:
+        raise KeyError(f"site_pos_overrides: site(s) not found in composed spec: {sorted(missing)}")
+    for name, pos in site_pos_overrides.items():
+        spec.site(name).pos = pos
+
+
+# Base names (side suffix stripped) of the per-bone forearm/finger/thumb
+# collision geoms introduced in #111. These are the geoms that
+# collision_mode="coarse" disables, restoring the pre-#111 convention where
+# only the palm/metacarpal skin geoms (*mcskin*) are collidable and the
+# forearm/fingers/thumb are pass-through. See
+# https://github.com/MyoHub/myo_sim/issues/127.
+COARSE_COLLISION_DISABLED_GEOM_BASENAMES: tuple[str, ...] = (
+    "humerus_coll",
+    "ulna_coll",
+    "radius_coll",
+    "radius_coll_2",
+    "radius_coll_3",
+    "proximal_thumb_coll",
+    "distal_thumb_coll",
+    "distal_thumb_coll_2",
+    "proxph2_coll",
+    "midph2_coll",
+    "distph2_coll",
+    "distph2_coll_2",
+    "proxph3_coll",
+    "midph3_coll",
+    "distph3_coll",
+    "distph3_coll_2",
+    "proxph4_coll",
+    "midph4_coll",
+    "distph4_coll",
+    "distph4_coll_2",
+    "5proxph_coll",
+    "5midph_coll",
+    "5distph_coll",
+    "5distph_coll_2",
+)
+_ARM_SIDE_SUFFIXES: tuple[str, ...] = ("_r", "_l")
+
+CollisionMode = Literal["full", "coarse"]
+
+
+def disable_finger_collision(spec: mujoco.MjSpec) -> mujoco.MjSpec:
+    """Disable per-bone collision on the forearm/finger/thumb chain, in place.
+
+    myo_sim#111 ("Refactor model composition to mjspec-based fragment
+    system") introduced full per-bone collision capsules on every finger
+    segment plus the forearm bones (radius/ulna/humerus) -- a more
+    anatomically faithful contact model, but a physics-breaking change for
+    anything built against the older, coarser convention where only the
+    palm/metacarpal skin geoms (``*mcskin*``) were collidable and the
+    fingers/forearm were pass-through (e.g. myosuite's baoding-balls tasks,
+    which rely on balls resting across fingertips without catching on
+    capsule edges between adjacent phalanx segments). See
+    https://github.com/MyoHub/myo_sim/issues/127.
+
+    Sets ``contype = conaffinity = 0`` on every geom in
+    ``COARSE_COLLISION_DISABLED_GEOM_BASENAMES`` (right and/or left,
+    whichever are present in ``spec``), leaving every other geom --
+    including the palm/metacarpal skin geoms -- untouched. Geoms absent from
+    ``spec`` (e.g. a right-only fragment has no ``_l`` geoms) are silently
+    skipped.
+
+    Also removes any explicit ``<pair>`` contact referencing a disabled geom:
+    explicit pairs (e.g. the humerus/radius/ulna cross-arm and torso pairs in
+    myoarm_contacts.xml/myohand_contacts.xml) bypass contype/conaffinity
+    filtering entirely, so they would otherwise stay active even though the
+    geom itself is marked non-collidable.
+
+    Args:
+        spec: A composed (uncompiled) MjSpec, as returned by build_spec().
+
+    Returns:
+        The same spec, mutated in place, for convenient chaining.
+    """
+    disabled_names = {
+        base_name + suffix for base_name in COARSE_COLLISION_DISABLED_GEOM_BASENAMES for suffix in _ARM_SIDE_SUFFIXES
+    }
+    for name in disabled_names:
+        geom = spec.geom(name)
+        if geom is not None:
+            geom.contype = 0
+            geom.conaffinity = 0
+    for pair in list(spec.pairs):
+        if pair.geomname1 in disabled_names or pair.geomname2 in disabled_names:
+            spec.delete(pair)
+    return spec
+
+
+def build_spec(
+    model_name: str,
+    build_kwargs: Optional[dict[str, Any]] = None,
+    inertia_floor: float | None = None,
+) -> mujoco.MjSpec:
+    """Build and return the composed, uncompiled MjSpec for a registered model.
+
+    Args:
+        model_name: Key into MODEL_REGISTRY (e.g. "myotorso_arms").
+        build_kwargs: Passed along to builder function.
+                      TODO: raise error if unused kwarg supplied.
+                      ``{"postures": True}`` adds all of the model's postures as
+                      keyframes and ``{"postures": ["standing"]}`` the named ones.
+                      Without it the spec has no keyframe, so joints can still be
+                      deleted from it; see myo_sim.build.keyframes.
+        inertia_floor: Optional numerical-conditioning floor for
+            auto/mesh-derived body inertia, applied via the compiler's
+            ``boundinertia`` attribute (MuJoCo clamps a body's principal
+            inertia up to this value, kg*m^2). When set, ``boundmass`` is
+            also set to 0.001 kg, matching the paired value used by the
+            legacy static-XML convention. None (default, unchanged behavior)
+            leaves the compiler defaults (0, i.e. no floor). Several small
+            wrist/finger bones in the right-hand fragment have true
+            auto-computed inertia as low as ~3e-8 kg*m^2, which
+            ``myoarm_r_assets.xml``'s legacy convention floored to 1e-4 via
+            ``compiler boundinertia=".0001" boundmass="0.001"`` for
+            numerical conditioning of the mass matrix; pass
+            ``inertia_floor=0.0001`` to restore that convention. See
+            https://github.com/MyoHub/myo_sim/issues/128.
+
+    Returns:
+        The composed MjSpec, ready for further edits or spec.compile().
+    """
+    try:
+        registration = MODEL_REGISTRY[model_name]
+    except KeyError as exc:
+        available = ", ".join(sorted(MODEL_REGISTRY))
+        raise ValueError(f"Unknown model selection: {model_name}. Available: {available}") from exc
+
+    if build_kwargs:
+        # A copy: the registry entry is shared by every later build and alias.
+        registration = replace(registration, build_kwargs={**registration.build_kwargs, **build_kwargs})
+
+    spec = SPEC_BUILDERS[registration.build_strategy](registration)
+    if registration.build_kwargs.get("disable_finger_collisions", False):
+        # Again on the composed spec: its explicit pairs are only added after the arms are built.
+        disable_finger_collision(spec)
+    if inertia_floor is not None:
+        apply_inertia_floor(spec, inertia_floor)
+    postures = registration.build_kwargs.get("postures", False)
+    if postures:
+        add_posture_keyframes(spec, model_name, None if postures is True else postures)
+    return spec
+
+
+def apply_inertia_floor(spec: mujoco.MjSpec, inertia_floor: float, mass_floor=0.001) -> mujoco.MjSpec:
+    """Set a ``boundinertia``/``boundmass`` compiler floor on every body, in place.
+
+    Composed fragments are built by attaching child MjSpecs (e.g. the
+    right-arm fragment) into a parent spec via ``MjSpec.attach()``. Each
+    attached body retains its originating sub-spec's own ``compiler``
+    settings at compile time, so setting ``spec.compiler.boundinertia`` only
+    on the top-level composed spec has no effect on bodies that came from an
+    attached child fragment -- only on bodies native to the top-level spec
+    (e.g. torso). To reliably apply the floor everywhere, this sets the
+    per-body compiler override on every body in the tree, not just the
+    top-level spec.
+
+    Args:
+      spec: A composed (uncompiled) MjSpec, as returned by build_spec().
+      inertia_floor: Floor value (kg*m^2) for ``boundinertia``.
+          ``boundmass``.
+      mass_floor: Floor value (kg) for ``boundmass``. Default value matches
+          old myo_sim models.
+
+    Returns:
+      The same spec, mutated in place, for convenient chaining.
+    """
+    spec.compiler.boundinertia = inertia_floor
+    spec.compiler.boundmass = mass_floor
+
+    def _set_recursive(body: mujoco.MjsBody) -> None:
+        body.compiler.boundinertia = inertia_floor
+        body.compiler.boundmass = mass_floor
+        for child in body.bodies:
+            _set_recursive(child)
+
+    _set_recursive(spec.worldbody)
+    return spec
+
+
+def unwrap_nested_classless_defaults(element: ET.Element) -> None:
+    for child in list(element):
+        unwrap_nested_classless_defaults(child)
+        if element.tag == "default" and child.tag == "default" and child.get("class") is None:
+            index = list(element).index(child)
+            element.remove(child)
+            for grandchild in list(child):
+                element.insert(index, grandchild)
+                index += 1
+
+
+def dedupe_default_element_children(element: ET.Element) -> None:
+    for child in list(element):
+        dedupe_default_element_children(child)
+
+    if element.tag != "default":
+        return
+
+    seen: dict[str, ET.Element] = {}
+    for child in list(element):
+        if child.tag == "default":
+            continue
+        existing = seen.get(child.tag)
+        if existing is None:
+            seen[child.tag] = child
+            continue
+        existing.attrib.update(child.attrib)
+        element.remove(child)
+
+
+def drop_duplicate_default_classes(element: ET.Element, seen: set[str] | None = None) -> None:
+    if seen is None:
+        seen = set()
+
+    for child in list(element):
+        if child.tag == "default" and child.get("class") is not None:
+            class_name = child.get("class", "")
+            if class_name in seen:
+                element.remove(child)
+                continue
+            seen.add(class_name)
+        drop_duplicate_default_classes(child, seen)
+
+
+def enable_floor_collision(root: ET.Element) -> None:
+    for geom in root.iter("geom"):
+        if geom.get("name") == "floor":
+            geom.set("contype", "1")
+            geom.set("conaffinity", "1")
+
+
+def iter_worldbody_geoms(root: ET.Element) -> list[ET.Element]:
+    worldbody = root.find("worldbody")
+    if worldbody is None:
+        return []
+    return list(worldbody.iter("geom"))
+
+
+def apply_compiled_geom_collision_flags(root: ET.Element, model: mujoco.MjModel) -> None:
+    """Preserve collision flags that can be lost through exported default inheritance."""
+    geoms = iter_worldbody_geoms(root)
+    if len(geoms) != model.ngeom:
+        raise ValueError(f"Generated XML has {len(geoms)} geoms, but compiled model has {model.ngeom}")
+
+    for geom_id, geom in enumerate(geoms):
+        geom.set("contype", str(int(model.geom_contype[geom_id])))
+        geom.set("conaffinity", str(int(model.geom_conaffinity[geom_id])))
+
+
+def sanitize_spec_xml(xml: str, asset_dir: str | None = None, model: mujoco.MjModel | None = None) -> str:
+    root = ET.fromstring(xml)
+    if asset_dir is not None:
+        compiler = root.find("compiler")
+        if compiler is None:
+            compiler = ET.Element("compiler")
+            root.insert(0, compiler)
+        compiler.set("meshdir", asset_dir)
+        compiler.set("texturedir", asset_dir)
+    unwrap_nested_classless_defaults(root)
+    dedupe_default_element_children(root)
+    drop_duplicate_default_classes(root)
+    enable_floor_collision(root)
+    if model is not None:
+        apply_compiled_geom_collision_flags(root, model)
+    ET.indent(root, space="  ")
+    return ET.tostring(root, encoding="unicode") + "\n"
+
+
+def write_spec_xml(spec: mujoco.MjSpec, output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    model = spec.compile()
+    asset_dir = os.path.relpath(ROOT, output_path.parent)
+    output_path.write_text(sanitize_spec_xml(spec.to_xml(), asset_dir=asset_dir, model=model))
+
+
+def generate_xml_files(output_root: Path = ROOT) -> list[Path]:
+    """Generate compiled base XML files for the primary composed models."""
+    output_paths: list[Path] = []
+    for model_name, rel_path in GENERATE_XML_TARGETS.items():
+        output_path = output_root / rel_path
+        spec = build_spec(model_name)
+        write_spec_xml(spec, output_path)
+        output_paths.append(output_path)
+    return output_paths
+
+
+def view_model(model: mujoco.MjModel) -> None:
+    import mujoco.viewer
+
+    data = mujoco.MjData(model)
+    try:
+        viewer_context = mujoco.viewer.launch_passive(model, data)
+    except RuntimeError as exc:
+        if sys.platform == "darwin" and "mjpython" in str(exc):
+            script = Path(__file__).name
+            raise SystemExit(
+                f"MuJoCo passive viewer requires mjpython on macOS.\nRun: mjpython -m myo_sim.build.{Path(script).stem} --view"
+            ) from exc
+        raise
+
+    with viewer_context as viewer:
+        while viewer.is_running():
+            mujoco.mj_step(model, data)
+            viewer.sync()
+            time.sleep(model.opt.timestep)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--model",
+        choices=tuple(sorted(MODEL_REGISTRY)),
+        default="myotorso_arms",
+        help="Which registered MjSpec-composed model to compile",
+    )
+    parser.add_argument(
+        "--generate",
+        action="store_true",
+        help="Generate compiled XML files for myoarms, myotorso, myolegs, myolegs26, and myofullbody",
+    )
+    parser.add_argument("--view", action="store_true", help="Open MuJoCo viewer")
+    args = parser.parse_args()
+
+    if args.generate:
+        for output_path in generate_xml_files():
+            print(f"generated: {output_path}")
+        return
+
+    model = build_spec(args.model).compile()
+    registration = MODEL_REGISTRY[args.model]
+    print(f"compiled {args.model}: nbody={model.nbody}, njnt={model.njnt}, nu={model.nu}")
+    print(f"description: {registration.description}")
+
+    if args.view:
+        view_model(model)
+
+
+if __name__ == "__main__":
+    main()

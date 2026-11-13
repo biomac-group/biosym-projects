@@ -1,0 +1,65 @@
+# Half-cycle walking of MyoFullBody at 1.3 m/s, started from the standing solution.
+# Paths are relative to the project folder (run.py changes into it).
+collocation:
+  name: myofullbody_walking
+  description: >
+    As 3d_simulations with --objective effort (cubed, volume-weighted muscle effort divided by speed^3, learned state
+    prior, heel-strike variance penalty), with muscle effort weight 300 and prior weight 1. No arm torque term: the
+    MyoFullBody arms (and hands) are muscle driven and are part of the muscle effort.
+  settings:
+    model: models/myofullbody/myofullbody.yaml
+    nnodes: 50
+    discretization:
+      type: euler                     # backward Euler on q; the speed constraint uses pelvis_tx (both defaults)
+      args:
+        weight: 10                    # scales the continuity and speed constraints (default 1)
+    output:
+      file: results/myofullbody/walking_v1.30_seed1.pkl
+    enable_logging: true              # iteration logger with the live dashboard (http://localhost:8051)
+    iteration_log_interval: 25
+    dashboard_port: 8051              # 8050 is the MS-Human run's
+    tol: 1e-3
+    acceptable_tol: 1e-3
+    acceptable_dual_inf_tol: 1e-3
+    dual_inf_tol: 1e-3
+    constr_viol_tol: 1e-4
+    max_iter: 10000
+
+  objectives:
+    - name: cot
+      weight: 1
+      args:
+        exponent: log
+    - name: objectives/prior_map.py   # state_prior_term with the MyoFullBody -> gait3d coordinate map
+      weight: 1
+      args:
+        thorax: lumbar1
+    - name: heelstrike_variance_term
+      weight: 100
+      args:
+        force_threshold: 0.05
+        std_limit: 0.03
+
+  constraints:
+    - name: dynamics
+    - name: periodicity
+      args:
+        symmetry: true                # half cycle: the last node is the mirror image of the first
+        mirror_negate: [pelvis_rotation, pelvis_list, pelvis_tz, lat_bending, axial_rotation]
+        exclude: [0]                  # state 0 is pelvis_tx (forward position); it advances over the half cycle
+
+  initial_guess:
+    type: from_file
+    file: results/myofullbody/standing_seed1.pkl
+
+  bounds:
+    from_model: true
+    start_at_origin: true
+    dur: [0.2, 0.69]                  # paper_walking.duration_bounds(1.3)
+    speed: 1.3
+    coordinate_ranges_unit: deg
+    coordinate_ranges:                # the range the muscle paths are fitted on (scripts/model_config.py)
+      flex_extension: [-30, 30]
+      elv_angle_*: [-45, 100]
+      shoulder_elv_*: [0, 90]
+      shoulder_rot_*: [-46, 75]

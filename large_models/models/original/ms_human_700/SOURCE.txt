@@ -1,0 +1,3 @@
+Source: https://github.com/google-deepmind/mujoco_menagerie/tree/370c43965323c0944b433b202aac5058b5f907a9/ms_human_700
+Upstream: https://github.com/LNSGroup/MS-Human-700 (Apache-2.0, see LICENSE)
+Fetched: 2026-11-12, unchanged (render PNGs dropped).

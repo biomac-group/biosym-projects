@@ -1,0 +1,8 @@
+mujoco<4,>=3.4
+numpy>=1.24
+
+[jax]
+jax>=0.4.20
+
+[torch]
+torch>=2.2

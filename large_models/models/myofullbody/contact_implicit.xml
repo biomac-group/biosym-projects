@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ground_contact_model force_law="huntcrossley" implicit="true" application_point="center">
+  <!-- Written by scripts/make_contact.py from the foot capsules of MyoFullBody (MyoHub myo_sim): spheres at the capsule ends, levelled to the heel in the default pose; SIPP contact law. -->
+  <default>
+    <contact_point name="default" body="default" pos="0 0 0" stiffness="1e+06" dissipation="2" static_friction="0.8" dynamic_friction="0.8" viscous_friction="0.5" transition_velocity="0.2" eps_depth="0.001" />
+  </default>
+  <geometry type="ContactSphere" name="foot_col1_r_a" body="calcn_r" pos="0.0099999496397 0 -0.0100000057121" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col1_r_b" body="calcn_r" pos="0.174999945819 -0.000131333660802 -0.0299999943295" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col3_r_a" body="calcn_r" pos="0.0100000236291 -6.39507580239e-09 0.0100000580732" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col3_r_b" body="calcn_r" pos="0.139999893986 -0.000103492628003 0.029999941894" radius="0.02" />
+  <geometry type="ContactSphere" name="bofoot_col1_r_a" body="toes_r" pos="0.00694730957074 -0.000639912043439 0.0405377359155" radius="0.0175" />
+  <geometry type="ContactSphere" name="bofoot_col1_r_b" body="toes_r" pos="0.0730516298199 -0.000692511733159 -0.0205377363376" radius="0.0175" />
+  <geometry type="ContactSphere" name="bofoot_col2_r_a" body="toes_r" pos="-0.0132366526253 0.0018761577107 0.0325574662253" radius="0.02" />
+  <geometry type="ContactSphere" name="bofoot_col2_r_b" body="toes_r" pos="0.0332396100367 0.00183918323455 -0.0325574650482" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col1_l_a" body="calcn_l" pos="0.00999994963471 -6.27727658325e-09 0.0100000057121" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col1_l_b" body="calcn_l" pos="0.174999945804 -0.000131352610383 0.0299999942463" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col3_l_a" body="calcn_l" pos="0.0100000236342 0 -0.0100000580732" radius="0.02" />
+  <geometry type="ContactSphere" name="foot_col3_l_b" body="calcn_l" pos="0.139999894001 -0.000103473560689 -0.0299999419596" radius="0.02" />
+  <geometry type="ContactSphere" name="bofoot_col1_l_a" body="toes_l" pos="0.0730516298102 -0.000692524003001 0.0205377358988" radius="0.0175" />
+  <geometry type="ContactSphere" name="bofoot_col1_l_b" body="toes_l" pos="0.00694730959177 -0.000639885614909 -0.0405377363209" radius="0.0175" />
+  <geometry type="ContactSphere" name="bofoot_col2_l_a" body="toes_l" pos="0.0332396100208 0.00183916334882 0.0325574662136" radius="0.02" />
+  <geometry type="ContactSphere" name="bofoot_col2_l_b" body="toes_l" pos="-0.0132366526083 0.00187617908281 -0.0325574650365" radius="0.02" />
+</ground_contact_model>
